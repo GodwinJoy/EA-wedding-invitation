@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edwin & Ann | Wedding Invitaion</title>
+    <!-- TAILWIND -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect"  href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
+    <!-- jsplugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="https://static.vecteezy.com/system/resources/thumbnails/001/187/549/small/heart-glossy.png">
+    <!-- css -->
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+        <!-- MUSIC -->
+
+    <button id="musicToggle"
+        class="fixed bottom-6 right-6 z-[99999] w-16 h-16 rounded-full music-btn">
+
+        <i class="fa-solid fa-music"></i>
+
+    </button>
+
+    <audio id="bgMusic" loop>
+
+        <source
+            src="./medias/leberch-invitation-wedding-375839.mp3"
+            type="audio/mp3">
+
+    </audio>
+
+<!-- INTRO -->
+<section id="intro"
+    class="fixed inset-0 z-[999999] overflow-hidden flex items-center justify-center bg-[#fffaf7]">
+
+    <!-- LUXURY BACKGROUND -->
+    <div
+        class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_#fffaf7,_#f4dfe5_45%,_#dcc5cd_100%)]">
+    </div>
+
+    <!-- GRADIENT MESH -->
+    <div
+        class="absolute inset-0 opacity-40 bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:40px_40px]">
+    </div>
+
+    <!-- GLOW EFFECTS -->
+    <div
+        class="absolute -top-32 -left-32 w-[300px] sm:w-[450px] md:w-[600px] h-[300px] sm:h-[450px] md:h-[600px] bg-[#efc3cf] rounded-full blur-[120px] opacity-30 animate-pulse">
+    </div>
+
+    <div
+        class="absolute -bottom-40 -right-40 w-[280px] sm:w-[420px] md:w-[550px] h-[280px] sm:h-[420px] md:h-[550px] bg-[#d9aa74] rounded-full blur-[130px] opacity-20 animate-pulse">
+    </div>
+
+    <!-- FLOATING PARTICLES -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+    </div>
+
+    <!-- DESKTOP CURTAINS -->
+    <div id="leftCurtain"
+        class="hidden lg:flex absolute left-0 top-0 w-1/2 h-full bg-gradient-to-br from-[#f9edf1] via-[#fffaf7] to-[#f4dfe5] items-center justify-center ">
+
+        <!-- texture -->
+        <div class="absolute inset-0 opacity-[0.05]"
+            style="background-image:url('https://www.transparenttextures.com/patterns/fabric-of-squares.png');">
+        </div>
+
+        <div class="relative text-center space-y-5 px-10">
+            <div
+                class="w-24 h-24 mx-auto rounded-full border border-[#cb7d96]/30 flex items-center justify-center backdrop-blur-md bg-white/20">
+                <i class="fa-solid fa-cross text-4xl text-[#cb7d96] float-icon"></i>
+            </div>
+
+            <p
+                class="tracking-[8px] text-[#cb7d96] text-xs uppercase font-light opacity-80">
+                Forever Begins
+            </p>
+        </div>
+    </div>
+
+    <div id="rightCurtain"
+        class="hidden lg:flex absolute right-0 top-0 w-1/2 h-full bg-gradient-to-bl from-[#f9edf1] via-[#fffaf7] to-[#f4dfe5] items-center justify-center ">
+
+        <!-- texture -->
+        <div class="absolute inset-0 opacity-[0.05]"
+            style="background-image:url('https://www.transparenttextures.com/patterns/fabric-of-squares.png');">
+        </div>
+
+        <div class="relative text-center space-y-5 px-10">
+            <div
+                class="w-24 h-24 mx-auto rounded-full border border-[#cb7d96]/30 flex items-center justify-center backdrop-blur-md bg-white/20">
+                <i class="fa-solid fa-dove text-4xl text-[#cb7d96] float-icon"></i>
+            </div>
+
+            <p
+                class="tracking-[8px] text-[#cb7d96] text-xs uppercase font-light opacity-80">
+                Blessed Forever
+            </p>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div
+        class="relative z-10 flex flex-col items-center justify-center text-center px-5 sm:px-8 w-full max-w-4xl">
+
+        <!-- TOP TEXT -->
+        <div
+            class="mb-6 sm:mb-8 flex items-center gap-3 sm:gap-5 opacity-90">
+            <span class="w-10 sm:w-16 h-[1px] bg-[#cb7d96]/50"></span>
+
+            <p
+                class="tracking-[5px] sm:tracking-[10px] text-[#cb7d96] text-[9px] sm:text-[11px] uppercase font-medium">
+                Wedding Invitation
+            </p>
+
+            <span class="w-10 sm:w-16 h-[1px] bg-[#cb7d96]/50"></span>
+        </div>
+
+        <!-- MONOGRAM -->
+        <div
+            class="flex items-center justify-center gap-3 sm:gap-6 md:gap-10 relative">
+
+            <!-- glow behind -->
+            <div
+                class="absolute w-56 sm:w-72 md:w-[500px] h-56 sm:h-72 md:h-[500px] bg-white/30 rounded-full blur-[100px]">
+            </div>
+
+            <!-- E -->
+            <span
+                class="relative neo-letter text-[85px] xs:text-[95px] sm:text-[120px] md:text-[160px] lg:text-[190px] leading-none elegant-font drop-shadow-[0_10px_25px_rgba(203,125,150,0.35)]">
+                E
+            </span>
+
+            <!-- AMPERSAND -->
+            <span
+                class="relative neo-amp text-[45px] sm:text-[65px] md:text-[85px] lg:text-[100px] text-[#d4a373] font-light">
+                &
+            </span>
+
+            <!-- A -->
+            <span
+                class="relative neo-letter text-[85px] xs:text-[95px] sm:text-[120px] md:text-[160px] lg:text-[190px] leading-none elegant-font drop-shadow-[0_10px_25px_rgba(203,125,150,0.35)]">
+                A
+            </span>
+        </div>
+
+
+
+        <!-- BUTTON -->
+        <button id="enterWebsite"
+            class="group relative overflow-hidden mt-10 sm:mt-12 px-8 sm:px-12 md:px-14 py-3.5 sm:py-4 rounded-full uppercase tracking-[4px] sm:tracking-[6px] font-semibold text-[11px] sm:text-sm text-white bg-gradient-to-r from-[#cb7d96] to-[#d4a373] shadow-[0_10px_40px_rgba(203,125,150,0.35)] transition-all duration-500 hover:scale-105 hover:shadow-[0_15px_50px_rgba(203,125,150,0.5)] active:scale-95">
+
+            <!-- shimmer -->
+            <span
+                class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent">
+            </span>
+
+            <span class="relative flex items-center gap-3">
+                <i class="fa-solid fa-heart text-xs"></i>
+                Tap To Open
+            </span>
+        </button>
+
+        <!-- MOBILE SMALL DECOR -->
+        <div
+            class="mt-10 flex lg:hidden items-center gap-6 opacity-60">
+            <i class="fa-solid fa-cross text-[#cb7d96] text-lg float-icon"></i>
+            <div class="w-12 h-[1px] bg-[#cb7d96]/40"></div>
+            <i class="fa-solid fa-dove text-[#d4a373] text-lg float-icon"></i>
+        </div>
+
+    </div>
+</section>
+
+    <!-- WEBSITE -->
+
+    <main id="websiteContent">
+        <!-- CUSTOM CURSOR -->
+        <div id="custom-cursor"></div>
+        <div id="cursor-follower"></div>
+
+        
+         <!-- scroll PROGRESS -->
+        <nav class="fixed top-10 right-10 z-[90]">
+            <div class="progress-round w-16 h-16 flex items-center justify-center relative">
+                <svg class="w-full h-full rotate-[-90deg]">
+                    <circle cx="32" cy="32" r="28" stroke="white" stroke-width="4" fill="transparent" />
+                    <circle id="scroll-circle" cx="32" cy="32" r="28" stroke="#cc7c95" stroke-width="4" fill="transparent" stroke-dasharray="176" stroke-dashoffset="176" />
+                </svg>
+                <span id="scroll-percent" class="absolute text-[12px] font-bold " style="color: #cb7d96;">0%</span>
+            </div>
+        </nav>
+
+        <!-- HERO -->
+        <section class="relative h-screen flex items-center justify-center p-6 overflow-hidden">
+            <div class="absolute w-full h-[500px]  rounded-full blur-[120px] opacity-20 -top-40 -left-32"></div>
+
+            <div id="hero-card-reveal"  class="neo-card w-full max-w-6xl  h-[80vh] flex flex-col md:flex-row overflow-hidden shadow-xl" style="visibility: hidden"> 
+                <div class="flex-1 p-12 flex flex-col justify-center">
+                    <h2 class="hero-stagger  tracking-[10px] text-xs font-bold mb-6 ">INVITATION</h2>
+                    <h1 class="hero-stagger text-7xl md:text-8xl elegant-font leading-none mb-2  ">Ann </h1>
+                    <h1 class="hero-stagger text-7xl md:text-8xl elegant-font text-[#d9aa74] leading-none mb-2">& </h1>
+                    <h1 class="hero-stagger text-7xl md:text-8xl elegant-font  leading-none mb-2 "> Edwin</h1>
+                    <p class="hero-stagger opacity-60 max-w-sm border-l-2 border-accent pl-6 italic">
+                        By the grace of God, we invite you to share in the joy of our marriage.
+                    </p>
+                </div>
+                
+                <div class="flex-1 relative group overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200" 
+                        class="w-full h-full object-cover ">
+                </div>
+            </div>
+        </section>
+
+<!-- OUR STORY -->
+<section
+    class="relative py-20 md:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#fffdfb]">
+
+    <!-- BACKGROUND GLOW -->
+    <div
+        class="absolute top-0 left-0 w-[220px] md:w-[420px] h-[220px] md:h-[420px] bg-[#f3c9d4] rounded-full blur-[100px] opacity-20">
+    </div>
+
+    <div
+        class="absolute bottom-0 right-0 w-[220px] md:w-[380px] h-[220px] md:h-[380px] bg-[#f0d2ad] rounded-full blur-[100px] opacity-15">
+    </div>
+
+    <!-- CONTAINER -->
+    <div
+        class="relative max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+
+        <!-- IMAGE -->
+        <div class="relative group">
+
+            <div
+                class="neo-card relative overflow-hidden rounded-[24px] sm:rounded-[32px]">
+
+                <!-- IMAGE -->
+                <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1200&auto=format&fit=crop"
+                    class="story-image w-full h-[360px] sm:h-[450px] md:h-[520px] object-cover transition-transform duration-[3000ms] group-hover:scale-105"
+                    alt="Wedding Couple">
+
+                <!-- OVERLAY -->
+                <div
+                    class="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent">
+                </div>
+
+                <!-- FLOATING TAG -->
+                <div
+                    class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 glass rounded-[20px] px-4 sm:px-5 py-3 backdrop-blur-xl border border-white/20">
+
+                    <p
+                        class="text-white text-[10px] sm:text-xs uppercase tracking-[3px] opacity-80 mb-1">
+                        Together Since
+                    </p>
+
+                    <h3
+                        class="text-white text-xl sm:text-2xl elegant-font">
+                        Forever
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="story-content relative z-10">
+
+            <!-- TOP -->
+            <div
+                class="flex items-center gap-3 mb-5">
+
+                <span
+                    class="w-10 h-[1px] bg-[#cb7d96]/50">
+                </span>
+
+                <p
+                    class="uppercase tracking-[4px] text-[#cb7d96] text-[10px] sm:text-xs font-semibold">
+                    Our Story
+                </p>
+            </div>
+
+            <!-- TITLE -->
+            <h2
+                class="text-[38px] sm:text-[52px] md:text-[64px] lg:text-[70px] leading-[0.95] text-[#6d565d] font-bold mb-6">
+
+                A Love
+
+                <span
+                    class="block gradient-text mt-1">
+                    Blessed By God
+                </span>
+            </h2>
+
+            <!-- DESCRIPTION -->
+            <div
+                class="relative pl-5 sm:pl-6">
+
+                <!-- LINE -->
+                <div
+                    class="absolute left-0 top-1 w-[2px] h-full bg-gradient-to-b from-[#cb7d96] via-[#d9aa74] to-transparent rounded-full">
+                </div>
+
+                <p
+                    class="text-[15px] sm:text-base leading-8 text-[#7d666c] max-w-xl">
+
+                    What began as friendship slowly blossomed
+                    into a beautiful journey filled with prayers,
+                    laughter, faith, and unforgettable memories.
+
+                    <br><br>
+
+                    Through every season, God guided their hearts
+                    together with love, grace, and companionship.
+
+                    <br><br>
+
+                    Now, hand in hand, they begin forever —
+                    surrounded by blessings and endless love.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- SCRATCH CARD SECTION -->
+<section
+    class="relative py-14 sm:py-16 px-4 overflow-hidden bg-[#fffaf7]">
+
+    <!-- BACKGROUND GLOW -->
+    <div
+        class="absolute -top-20 -left-20 w-[220px] h-[220px] bg-[#f5dfe5] rounded-full blur-[90px] opacity-30">
+    </div>
+
+    <div
+        class="absolute -bottom-20 -right-20 w-[220px] h-[220px] bg-[#f7eadf] rounded-full blur-[90px] opacity-25">
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto text-center">
+
+        <!-- TOP -->
+        <div class="mb-8">
+
+            <div
+                class="flex items-center justify-center gap-3 mb-4">
+
+                <span
+                    class="w-10 h-[1px] bg-[#cb7d96]/40">
+                </span>
+
+                <p
+                    class="uppercase tracking-[5px] text-[#cb7d96] text-[10px] font-semibold">
+                    Scratch To Reveal
+                </p>
+
+                <span
+                    class="w-10 h-[1px] bg-[#cb7d96]/40">
+                </span>
+            </div>
+
+            <h2
+                class="text-[34px] sm:text-[48px] md:text-[58px] font-bold leading-none text-[#6d565d]">
+
+                Save The
+                <span class="gradient-text">
+                    Date
+                </span>
+            </h2>
+        </div>
+
+        <!-- SCRATCH CARD -->
+        <div id="scratchWrapper"
+            class="relative w-full max-w-[240px] sm:max-w-[270px] md:max-w-[300px] h-[320px] sm:h-[360px] md:h-[390px] mx-auto rounded-[30px] overflow-hidden border border-white/50 bg-white/70 backdrop-blur-xl shadow-[0_14px_40px_rgba(214,185,193,0.14)]">
+
+            <!-- CONTENT -->
+            <div
+                class="absolute inset-0 z-0 flex flex-col items-center justify-center px-4 py-5 bg-gradient-to-br from-[#fffdfc] via-[#f9ecef] to-[#cc7c95]">
+
+                <!-- HEART -->
+                <div
+                    class="relative z-10 w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center mb-4">
+
+                    <i
+                        class="fa-solid fa-heart text-white text-sm floating">
+                    </i>
+                </div>
+
+                <!-- NAMES -->
+                <h2
+                    class="relative z-10 text-[28px] sm:text-[34px] elegant-font text-[#6d565d] mb-5 leading-none text-center">
+
+                    Edwin
+                    <span class="text-[#d9aa74]">&</span>
+                    Ann
+                </h2>
+
+                <!-- CALENDAR -->
+                <div
+                    class="relative z-10 w-full max-w-[190px] rounded-[22px] overflow-hidden bg-white/85 backdrop-blur-xl border border-white/60 shadow-[8px_8px_20px_rgba(0,0,0,0.04),-8px_-8px_20px_rgba(255,255,255,0.9)]">
+
+                    <!-- TOP -->
+                    <div
+                        class="relative py-3 bg-gradient-to-r from-[#cb7d96] via-[#d69aa8] to-[#d9aa74]">
+
+                        <div
+                            class="absolute left-3 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-white/60">
+                        </div>
+
+                        <div
+                            class="absolute right-3 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-white/60">
+                        </div>
+
+                        <p
+                            class="uppercase tracking-[2px] text-[8px] text-white">
+                            October 2026
+                        </p>
+                    </div>
+
+                    <!-- BODY -->
+                    <div class="py-5 px-3">
+
+                        <h3
+                            class="text-4xl sm:text-5xl font-bold text-[#6d565d] leading-none mb-2">
+                            26
+                        </h3>
+
+                        <div
+                            class="w-8 h-[1px] bg-[#d9aa74]/40 mx-auto mb-2">
+                        </div>
+
+                        <p
+                            class="uppercase tracking-[2px] text-[8px] text-[#b07d8b] mb-2">
+                            Monday • 3 PM
+                        </p>
+
+                        <p
+                            class="italic text-[#8d6f77] text-[11px]">
+                            “Forever begins here.”
+                        </p>
+                    </div>
+                </div>
+
+                <!-- TEXT -->
+                <p
+                    class="relative z-10 mt-5 text-white/80 text-[9px] tracking-[2px] uppercase">
+                    Scratch The Card
+                </p>
+            </div>
+
+            <!-- SCRATCH -->
+            <canvas id="scratchCanvas"
+                class="absolute inset-0 z-20 w-full h-full">
+            </canvas>
+
+            <!-- CELEBRATION -->
+            <div id="celebration"
+                class="absolute inset-0 z-30 pointer-events-none hidden">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- COUNTDOWN -->
+<section id="countdownSection"
+    class="relative py-20 sm:py-24 md:py-28 px-4 sm:px-6 overflow-hidden bg-[#fff7f3] opacity-0 translate-y-[80px] pointer-events-none">
+
+    <!-- BACKGROUND -->
+    <div
+        class="absolute -top-28 -left-28 w-[260px] sm:w-[420px] h-[260px] sm:h-[420px] bg-[#f3b6c6] blur-[130px] opacity-25 rounded-full">
+    </div>
+
+    <div
+        class="absolute -bottom-28 -right-28 w-[260px] sm:w-[420px] h-[260px] sm:h-[420px] bg-[#f7d1b6] blur-[130px] opacity-20 rounded-full">
+    </div>
+
+    <div class="relative z-10 max-w-6xl mx-auto">
+
+        <!-- TOP -->
+        <div class="text-center mb-14 sm:mb-16">
+
+            <div
+                class="flex items-center justify-center gap-4 mb-5">
+
+                <span
+                    class="w-10 sm:w-16 h-[1px] bg-[#cb7d96]/40">
+                </span>
+
+                <p
+                    class="uppercase tracking-[4px] sm:tracking-[7px] text-[#cb7d96] text-[10px] sm:text-xs opacity-80">
+                    Countdown To Forever
+                </p>
+
+                <span
+                    class="w-10 sm:w-16 h-[1px] bg-[#cb7d96]/40">
+                </span>
+            </div>
+
+            <h2
+                class="text-[40px] sm:text-[56px] md:text-[72px] font-bold gradient-text leading-none">
+
+                Save The Date
+            </h2>
+        </div>
+
+        <!-- COUNTDOWN -->
+        <div
+            class="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-7 max-w-5xl mx-auto">
+
+            <!-- CARD -->
+            <div
+                class="count-box neo-card group">
+
+                <div
+                    class="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-5 rounded-full bg-gradient-to-br from-[#fbe4ea] to-[#fff] flex items-center justify-center shadow-inner">
+
+                    <i
+                        class="fa-regular fa-calendar text-[#cb7d96] text-lg">
+                    </i>
+                </div>
+
+                <h2 id="days"
+                    class="text-[#cb7d96] text-4xl sm:text-5xl font-bold">
+                    00
+                </h2>
+
+                <p>Days</p>
+            </div>
+
+            <!-- CARD -->
+            <div
+                class="count-box neo-card group">
+
+                <div
+                    class="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-5 rounded-full bg-gradient-to-br from-[#fbe4ea] to-[#fff] flex items-center justify-center shadow-inner">
+
+                    <i
+                        class="fa-regular fa-clock text-[#cb7d96] text-lg">
+                    </i>
+                </div>
+
+                <h2 id="hours"
+                    class="text-[#cb7d96] text-4xl sm:text-5xl font-bold">
+                    00
+                </h2>
+
+                <p>Hours</p>
+            </div>
+
+            <!-- CARD -->
+            <div
+                class="count-box neo-card group">
+
+                <div
+                    class="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-5 rounded-full bg-gradient-to-br from-[#fbe4ea] to-[#fff] flex items-center justify-center shadow-inner">
+
+                    <i
+                        class="fa-regular fa-hourglass-half text-[#cb7d96] text-lg">
+                    </i>
+                </div>
+
+                <h2 id="minutes"
+                    class="text-[#cb7d96] text-4xl sm:text-5xl font-bold">
+                    00
+                </h2>
+
+                <p>Minutes</p>
+            </div>
+
+            <!-- CARD -->
+            <div
+                class="count-box neo-card group">
+
+                <div
+                    class="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-5 rounded-full bg-gradient-to-br from-[#fbe4ea] to-[#fff] flex items-center justify-center shadow-inner">
+
+                    <i
+                        class="fa-solid fa-heart text-[#cb7d96] text-lg floating">
+                    </i>
+                </div>
+
+                <h2 id="seconds"
+                    class="text-[#cb7d96] text-4xl sm:text-5xl font-bold">
+                    00
+                </h2>
+
+                <p>Seconds</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- VENUE SECTION -->
+<section
+    class="relative py-14 sm:py-16 md:py-20 px-4 sm:px-5 overflow-hidden bg-[#fff5f7]">
+
+    <!-- SOFT BACKGROUND -->
+    <div
+        class="absolute top-0 left-[-120px] w-[180px] sm:w-[260px] h-[180px] sm:h-[260px] bg-[#f3bfd0] rounded-full blur-[100px] opacity-20">
+    </div>
+
+    <div
+        class="absolute bottom-0 right-[-120px] w-[180px] sm:w-[260px] h-[180px] sm:h-[260px] bg-[#f0c7d4] rounded-full blur-[100px] opacity-20">
+    </div>
+
+    <!-- GRID -->
+    <div
+        class="absolute inset-0 opacity-[0.045]"
+        style="background-image:linear-gradient(#000 1px,transparent 1px),linear-gradient(90deg,#000 1px,transparent 1px);background-size:42px 42px;">
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto">
+
+        <!-- HEADING -->
+        <div class="text-center max-w-2xl mx-auto mb-10">
+
+            <div
+                class="flex items-center justify-center gap-3 mb-4">
+
+                <span class="w-10 h-[1px] bg-[#cb7d96]/40"></span>
+
+                <p
+                    class="uppercase tracking-[5px] text-[#cb7d96] text-[10px] font-medium">
+                    Wedding Venue
+                </p>
+
+                <span class="w-10 h-[1px] bg-[#cb7d96]/40"></span>
+            </div>
+
+            <h2
+                class="text-[34px] sm:text-[48px] md:text-[60px] leading-[0.95] font-bold text-[#6d565d]">
+
+                Celebrate
+
+                <span class="block gradient-text">
+                    With Us
+                </span>
+            </h2>
+
+            <p
+                class="mt-4 text-sm sm:text-[15px] text-[#866f75] leading-7 max-w-xl mx-auto">
+                Join us as we celebrate love, faith, and togetherness
+                in a day filled with beautiful memories.
+            </p>
+        </div>
+
+        <!-- VENUE CARDS -->
+        <div
+            class="grid md:grid-cols-2 gap-5">
+
+            <!-- CHURCH -->
+            <div
+                class="group rounded-[24px] overflow-hidden bg-white/85 backdrop-blur-xl border border-white/50 shadow-[0_10px_30px_rgba(203,125,150,0.08)] transition-all duration-500 hover:-translate-y-1">
+
+                <!-- IMAGE -->
+                <div class="relative h-[180px] sm:h-[210px] overflow-hidden">
+
+                    <img src="https://media-cdn.tripadvisor.com/media/photo-m/1280/16/b1/3c/2b/st-francis-de-sales-catholic.jpg"
+                        class="w-full h-full object-cover transition duration-[2500ms] group-hover:scale-105">
+
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/30 via-black/5 to-transparent">
+                    </div>
+
+                    <!-- ICON -->
+                    <div
+                        class="absolute top-4 left-4 w-12 h-12 rounded-[16px] bg-white/70 backdrop-blur-xl flex items-center justify-center shadow-lg">
+
+                        <i
+                            class="fa-solid fa-church text-[#cb7d96] text-sm">
+                        </i>
+                    </div>
+
+                    <!-- TAG -->
+                    <div
+                        class="absolute bottom-4 left-4 px-4 py-2 rounded-full bg-white/15 backdrop-blur-xl border border-white/20">
+
+                        <p
+                            class="text-white text-[9px] tracking-[4px] uppercase">
+                            Ceremony
+                        </p>
+                    </div>
+                </div>
+
+                <!-- CONTENT -->
+                <div class="p-5 sm:p-6">
+
+                    <h3
+                        class="text-[28px] sm:text-[34px]  text-[#6d565d] leading-none mb-3">
+
+                        St. Mary's Catholic Church
+                    </h3>
+
+                    <p
+                        class="text-[#7d666c] text-sm leading-7 mb-5">
+
+                        Join us as we exchange vows before God
+                        and begin our forever journey together.
+                    </p>
+
+                    <!-- DETAILS -->
+                    <div class="space-y-3 mb-5">
+
+                        <div
+                            class="flex items-center gap-3 text-[#6d565d] text-sm">
+
+                            <div
+                                class="w-9 h-9 rounded-full bg-[#fff3f6] flex items-center justify-center">
+
+                                <i
+                                    class="fa-solid fa-location-dot text-[#cb7d96] text-xs">
+                                </i>
+                            </div>
+
+                            <p>Thanikkudam Mudikkod Rd, Chirakkakkode, Kerala 680652</p>
+                        </div>
+
+                        <div
+                            class="flex items-center gap-3 text-[#6d565d] text-sm">
+
+                            <div
+                                class="w-9 h-9 rounded-full bg-[#fff3f6] flex items-center justify-center">
+
+                                <i
+                                    class="fa-solid fa-clock text-[#cb7d96] text-xs">
+                                </i>
+                            </div>
+
+                            <p>3:00 PM</p>
+                        </div>
+                    </div>
+
+                    <!-- BUTTON -->
+                    <a href="https://maps.app.goo.gl/s2PdVbZqhNvWHvns8"
+                        target="_blank"
+                        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-white text-[10px] uppercase tracking-[3px] bg-gradient-to-r from-[#cb7d96] to-[#d9aa74] shadow-[0_10px_25px_rgba(203,125,150,0.18)] hover:scale-105 transition-all duration-300">
+
+                        <i class="fa-solid fa-location-arrow text-[10px]"></i>
+
+                        Directions
+                    </a>
+                </div>
+            </div>
+
+            <!-- RECEPTION -->
+            <div
+                class="group rounded-[24px] overflow-hidden bg-white/85 backdrop-blur-xl border border-white/50 shadow-[0_10px_30px_rgba(203,125,150,0.08)] transition-all duration-500 hover:-translate-y-1">
+
+                <!-- IMAGE -->
+                <div class="relative h-[180px] sm:h-[210px] overflow-hidden">
+
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/072/283/685/small/elegant-banquet-hall-with-red-tablecloths-and-sparkling-lights-is-ready-photo.jpg"
+                        class="w-full h-full object-cover transition duration-[2500ms] group-hover:scale-105">
+
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/30 via-black/5 to-transparent">
+                    </div>
+
+                    <!-- ICON -->
+                    <div
+                        class="absolute top-4 left-4 w-12 h-12 rounded-[16px] bg-white/70 backdrop-blur-xl flex items-center justify-center shadow-lg">
+
+                        <i
+                            class="fa-solid fa-champagne-glasses text-[#cb7d96] text-sm">
+                        </i>
+                    </div>
+
+                    <!-- TAG -->
+                    <div
+                        class="absolute bottom-4 left-4 px-4 py-2 rounded-full bg-white/15 backdrop-blur-xl border border-white/20">
+
+                        <p
+                            class="text-white text-[9px] tracking-[4px] uppercase">
+                            Reception
+                        </p>
+                    </div>
+                </div>
+
+                <!-- CONTENT -->
+                <div class="p-5 sm:p-6">
+
+                    <h3
+                        class="text-[28px] sm:text-[34px] text-[#6d565d] leading-none mb-3">
+
+                        Pearl Wedding Village
+
+                    </h3>
+
+                    <p
+                        class="text-[#7d666c] text-sm leading-7 mb-5">
+
+                        Celebrate with us with joy, laughter,
+                        music, blessings, and unforgettable moments.
+                    </p>
+
+                    <!-- DETAILS -->
+                    <div class="space-y-3 mb-5">
+
+                        <div
+                            class="flex items-center gap-3 text-[#6d565d] text-sm">
+
+                            <div
+                                class="w-9 h-9 rounded-full bg-[#fff3f6] flex items-center justify-center">
+
+                                <i
+                                    class="fa-solid fa-location-dot text-[#cb7d96] text-xs">
+                                </i>
+                            </div>
+
+                            <p>Thanikkudam Mudikkod Rd, Chirakkakkode, Kerala 680654</p>
+                        </div>
+
+                        <div
+                            class="flex items-center gap-3 text-[#6d565d] text-sm">
+
+                            <div
+                                class="w-9 h-9 rounded-full bg-[#fff3f6] flex items-center justify-center">
+
+                                <i
+                                    class="fa-solid fa-clock text-[#cb7d96] text-xs">
+                                </i>
+                            </div>
+
+                            <p>05:00 PM</p>
+                        </div>
+                    </div>
+
+                    <!-- BUTTON -->
+                    <a href="https://maps.app.goo.gl/Bu3CDjXJnsjGN8VA7"
+                        target="_blank"
+                        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-white text-[10px] uppercase tracking-[3px] bg-gradient-to-r from-[#cb7d96] to-[#d9aa74] shadow-[0_10px_25px_rgba(203,125,150,0.18)] hover:scale-105 transition-all duration-300">
+
+                        <i class="fa-solid fa-location-arrow text-[10px]"></i>
+
+                        Directions
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MEMORY NOTES -->
+<section class="relative py-32 px-6 overflow-hidden bg-[#fffdfb]">
+
+    <!-- glow -->
+    <div class="absolute -top-32 left-[-120px] w-[380px] h-[380px] bg-[#f4d9df] rounded-full blur-[120px] opacity-40"></div>
+    <div class="absolute bottom-[-120px] right-[-120px] w-[380px] h-[380px] bg-[#f7e5d7] rounded-full blur-[120px] opacity-40"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto text-center">
+
+        <p class="uppercase tracking-[7px] text-[#cb7d96] text-xs mb-5">
+            Little Memories
+        </p>
+
+        <h2 class="text-5xl md:text-7xl font-bold text-[#6d565d] mb-20">
+            Notes From
+            <span class="gradient-text">The Heart</span>
+        </h2>
+
+        <!-- notes grid -->
+        <div class="grid md:grid-cols-3 gap-10">
+
+            <!-- note -->
+            <div class="memory-note rotate-[-4deg] p-8 rounded-[30px]
+                bg-[#fff8f5]
+                shadow-[12px_12px_30px_rgba(0,0,0,0.06),-12px_-12px_30px_rgba(255,255,255,0.9)]">
+
+                <p class="text-2xl cursive text-[#cb7d96] mb-5">
+                    “She said yes.”
+                </p>
+
+                <p class="text-[#7d666c] leading-8">
+                    A moment filled with joy, prayers,
+                    and endless happiness.
+                </p>
+
+            </div>
+
+            <!-- note -->
+            <div class="memory-note rotate-[3deg] p-8 rounded-[30px]
+                bg-[#fff8f5]
+                shadow-[12px_12px_30px_rgba(0,0,0,0.06),-12px_-12px_30px_rgba(255,255,255,0.9)]">
+
+                <p class="text-2xl cursive text-[#d9aa74] mb-5">
+                    “God’s timing is perfect.”
+                </p>
+
+                <p class="text-[#7d666c] leading-8">
+                    Every step of our journey
+                    brought us closer together.
+                </p>
+
+            </div>
+
+            <!-- note -->
+            <div class="memory-note rotate-[-2deg] p-8 rounded-[30px]
+                bg-[#fff8f5]
+                shadow-[12px_12px_30px_rgba(0,0,0,0.06),-12px_-12px_30px_rgba(255,255,255,0.9)]">
+
+                <p class="text-2xl cursive text-[#cb7d96] mb-5">
+                    “Two souls,one forever.”
+                </p>
+
+                <p class="text-[#7d666c] leading-8">
+                    Surrounded by love,
+                    faith, and blessings.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+        <!-- FOOTER -->
+
+        <footer class="py-20 bg-[#fffdfb] text-center px-6">
+
+            <i class="fa-solid fa-cross text-4xl text-[#cb7d96] mb-8"></i>
+
+            <p class="tracking-[4px] uppercase text-[#a77885]">
+
+                Thank You For Your Blessings
+
+            </p>
+
+        </footer>
+
+    </main>
+    <!-- jsfile -->
+     <script src="./script.js"></script>
+</body>
+</html>
