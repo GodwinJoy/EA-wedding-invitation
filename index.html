@@ -427,17 +427,13 @@ class="fixed inset-0 pointer-events-none z-[9998] overflow-hidden">
 
     <!-- MAIN CONTAINER -->
     <div
-        class="relative z-10 max-w-4xl mx-auto px-5 grid lg:grid-cols-2 gap-8 lg:gap-10 items-center min-h-[420px]">
+        class="relative z-10 max-w-4xl mx-auto px-5 flex flex-col items-center justify-center text-center min-h-[420px]">
 
-        <!-- =======================
-                LEFT CONTENT
-        ======================== -->
+        <!-- HEADING -->
+        <div class="flex flex-col items-center justify-center mb-10">
 
-        <div class="text-center lg:text-left">
-
-            <!-- HEADING -->
             <h2
-                class="mt-5 text-[36px] sm:text-[48px] md:text-[54px] leading-[0.92] font-semibold text-[#5d464d]">
+                class="text-[38px] sm:text-[52px] md:text-[60px] leading-[0.92] font-semibold text-[#5d464d]">
 
                 Save The
 
@@ -450,44 +446,9 @@ class="fixed inset-0 pointer-events-none z-[9998] overflow-hidden">
 
             </h2>
 
-            <!-- MINI DETAILS -->
-            <div
-                class="mt-7 flex flex-wrap justify-center lg:justify-start gap-3">
-
-                <div
-                    class="px-4 py-2 rounded-xl bg-white/75 backdrop-blur-xl border border-white shadow-[0_8px_22px_rgba(203,125,150,0.05)]">
-
-                    <p class="uppercase tracking-[2px] text-[8px] text-[#bb8a97]">
-                        Wedding Day
-                    </p>
-
-                    <h4 class="text-[#5d464d] text-[13px] font-semibold mt-1">
-                        26 October 2026
-                    </h4>
-
-                </div>
-
-                <div
-                    class="px-4 py-2 rounded-xl bg-white/75 backdrop-blur-xl border border-white shadow-[0_8px_22px_rgba(203,125,150,0.05)]">
-
-                    <p class="uppercase tracking-[2px] text-[8px] text-[#bb8a97]">
-                        Ceremony
-                    </p>
-
-                    <h4 class="text-[#5d464d] text-[13px] font-semibold mt-1">
-                        Monday • 3 PM
-                    </h4>
-
-                </div>
-
-            </div>
-
         </div>
 
-        <!-- =======================
-                REVEAL CARD
-        ======================== -->
-
+        <!-- REVEAL CARD -->
         <div class="relative flex justify-center">
 
             <!-- CARD GLOW -->
@@ -510,7 +471,7 @@ class="fixed inset-0 pointer-events-none z-[9998] overflow-hidden">
                 overflow-hidden
                 bg-white
                 border border-white/80
-                backdrop-blur-2xl
+                backdrop-blur-xl
                 shadow-[0_18px_50px_rgba(203,125,150,0.14)]">
 
                 <!-- INNER BORDER -->
@@ -521,10 +482,7 @@ class="fixed inset-0 pointer-events-none z-[9998] overflow-hidden">
                     z-10 pointer-events-none">
                 </div>
 
-                <!-- =======================
-                        REVEALED CONTENT
-                ======================== -->
-
+                <!-- REVEALED CONTENT -->
                 <div id="saveDateContent"
                     class="absolute inset-0 z-0 flex flex-col items-center justify-center
                     text-center px-5 opacity-0 scale-[0.9] blur-sm
@@ -616,10 +574,7 @@ class="fixed inset-0 pointer-events-none z-[9998] overflow-hidden">
 
                 </div>
 
-                <!-- =======================
-                        PETAL LAYER
-                ======================== -->
-
+                <!-- PETAL LAYER -->
                 <div id="petalLayer"
                     class="absolute inset-0 z-20 overflow-hidden
                     bg-[linear-gradient(to_bottom,#fff8fa,#fdf1f4)]">
