@@ -740,3 +740,105 @@
         }
     }
 
+/* =========================
+   LUXURY FLOWERS
+========================= */
+
+#flowerContainer {
+
+    perspective: 1200px;
+
+}
+
+.flower {
+
+    position: absolute;
+
+    top: -120px;
+
+    will-change:
+        transform,
+        opacity;
+
+    pointer-events: none;
+
+    user-select: none;
+
+    backface-visibility: hidden;
+
+    transform-style: preserve-3d;
+
+    filter:
+        drop-shadow(0 8px 20px rgba(203,125,150,0.18));
+
+}
+
+/* DEPTH LAYERS */
+
+.flower.depth-far {
+
+    opacity: 0.35;
+
+    filter:
+        blur(2px)
+        drop-shadow(0 10px 25px rgba(0,0,0,0.12));
+
+}
+
+.flower.depth-mid {
+
+    opacity: 0.6;
+
+    filter:
+        blur(1px)
+        drop-shadow(0 8px 20px rgba(0,0,0,0.14));
+
+}
+
+.flower.depth-near {
+
+    opacity: 1;
+
+}
+
+/* GLOW PARTICLES */
+
+.flower-glow {
+
+    position: absolute;
+
+    width: 12px;
+    height: 12px;
+
+    border-radius: 999px;
+
+    background:
+        radial-gradient(circle,
+        rgba(255,255,255,0.95),
+        rgba(255,255,255,0));
+
+    pointer-events: none;
+
+    filter: blur(2px);
+
+    opacity: 0.7;
+
+    will-change:
+        transform,
+        opacity;
+}
+
+/* MOBILE */
+
+@media (max-width:768px) {
+
+    .flower {
+
+        filter:
+            drop-shadow(0 4px 12px rgba(203,125,150,0.15));
+
+    }
+
+}
+
+

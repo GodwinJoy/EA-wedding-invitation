@@ -1,5 +1,10 @@
-
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+/* =========================
+   BODY LOCK
+========================= */
+
+document.body.style.overflow = "hidden";
 
 /* =========================
    CUSTOM CURSOR
@@ -10,8 +15,8 @@ const follower = document.getElementById("cursor-follower");
 
 if (window.innerWidth < 768) {
 
-    cursor.style.display = "none";
-    follower.style.display = "none";
+    if (cursor) cursor.style.display = "none";
+    if (follower) follower.style.display = "none";
 
 } else {
 
@@ -50,10 +55,22 @@ if (window.innerWidth < 768) {
 const music = document.getElementById("bgMusic");
 const musicBtn = document.getElementById("musicToggle");
 const enterBtn = document.getElementById("enterWebsite");
+const intro = document.getElementById("intro");
+const websiteContent = document.getElementById("websiteContent");
 
 let playing = false;
 
-/* PLAY MUSIC */
+/* SAFETY CHECK */
+
+if (!music || !musicBtn || !enterBtn) {
+
+    console.warn("Music elements missing");
+
+}
+
+/* =========================
+   PLAY MUSIC
+========================= */
 
 function playMusic() {
 
@@ -67,11 +84,16 @@ function playMusic() {
 
         })
         .catch(err => {
+
             console.log("Autoplay blocked:", err);
+
         });
+
 }
 
-/* PAUSE MUSIC */
+/* =========================
+   PAUSE MUSIC
+========================= */
 
 function pauseMusic() {
 
@@ -81,9 +103,12 @@ function pauseMusic() {
 
     musicBtn.innerHTML =
         `<i class="fa-solid fa-music"></i>`;
+
 }
 
-/* MUSIC TOGGLE */
+/* =========================
+   MUSIC TOGGLE
+========================= */
 
 musicBtn.addEventListener("click", () => {
 
@@ -100,12 +125,293 @@ musicBtn.addEventListener("click", () => {
 });
 
 /* =========================
-   INTRO → WEBSITE TRANSITION
+   LUXURY FLOWERS
+========================= */
+
+const flowerContainer =
+    document.getElementById("flowerContainer");
+
+/* FLOWER SVG DESIGNS */
+
+const flowerSvgs = [
+
+`<svg width="36" height="36" viewBox="0 0 64 64" fill="none">
+<path d="M32 10C36 20 48 20 50 32C48 44 36 44 32 54C28 44 16 44 14 32C16 20 28 20 32 10Z"
+fill="#f8d7e2"/>
+</svg>`,
+
+`<svg width="32" height="32" viewBox="0 0 64 64" fill="none">
+<path d="M32 8C38 18 52 20 54 32C52 44 38 46 32 56C26 46 12 44 10 32C12 20 26 18 32 8Z"
+fill="#f3c9d7"/>
+</svg>`,
+
+`<svg width="28" height="28" viewBox="0 0 64 64" fill="none">
+<path d="M32 12C36 20 46 22 48 32C46 42 36 44 32 52C28 44 18 42 16 32C18 22 28 20 32 12Z"
+fill="#fff1f5"/>
+</svg>`
+
+];
+
+/* =========================
+   CREATE FLOWER
+========================= */
+
+function createFlower() {
+
+    const flower =
+        document.createElement("div");
+
+    flower.classList.add("flower");
+
+    const depthRandom = Math.random();
+
+    if (depthRandom < 0.33) {
+
+        flower.classList.add("depth-far");
+
+    } else if (depthRandom < 0.66) {
+
+        flower.classList.add("depth-mid");
+
+    } else {
+
+        flower.classList.add("depth-near");
+
+    }
+
+    flower.innerHTML =
+        flowerSvgs[
+            Math.floor(
+                Math.random() * flowerSvgs.length
+            )
+        ];
+
+    flowerContainer.appendChild(flower);
+
+    const startX =
+        Math.random() * window.innerWidth;
+
+    const startY =
+        -150 - Math.random() * 200;
+
+    const size =
+        Math.random() * 30 + 20;
+
+    const duration =
+        Math.random() * 8 + 12;
+
+    const drift =
+        (Math.random() - 0.5) * 350;
+
+    const rotate =
+        Math.random() * 360;
+
+    const scale =
+        Math.random() * 0.6 + 0.7;
+
+    flower.style.width = `${size}px`;
+    flower.style.height = `${size}px`;
+
+    gsap.set(flower, {
+
+        x: startX,
+        y: startY,
+
+        scale: scale,
+
+        rotation: rotate,
+
+        opacity: 0,
+
+        force3D: true
+
+    });
+
+    gsap.fromTo(flower,
+
+        {
+            opacity: 0,
+            scale: scale * 0.7,
+            filter:
+                "blur(10px)"
+        },
+
+        {
+            opacity: 1,
+            scale: scale,
+            filter:
+                "blur(0px)",
+
+            duration: 2,
+
+            ease: "power3.out"
+        }
+
+    );
+
+    gsap.to(flower, {
+
+        y:
+            window.innerHeight + 250,
+
+        x:
+            startX + drift,
+
+        rotation:
+            rotate +
+            (Math.random() > 0.5
+                ? 720
+                : -720),
+
+        duration: duration,
+
+        ease: "none",
+
+        force3D: true,
+
+        onComplete: () => {
+
+            flower.remove();
+
+        }
+
+    });
+
+    gsap.to(flower, {
+
+        x:
+            `+=${Math.random() > 0.5 ? 50 : -50}`,
+
+        duration:
+            Math.random() * 3 + 2,
+
+        repeat: -1,
+
+        yoyo: true,
+
+        ease: "sine.inOut"
+
+    });
+
+    gsap.to(flower, {
+
+        rotateZ:
+            `+=${Math.random() > 0.5 ? 25 : -25}`,
+
+        duration:
+            Math.random() * 4 + 3,
+
+        repeat: -1,
+
+        yoyo: true,
+
+        ease: "sine.inOut"
+
+    });
+
+    createFlowerGlow(startX);
+
+}
+
+/* =========================
+   FLOWER GLOW
+========================= */
+
+function createFlowerGlow(x) {
+
+    const glow =
+        document.createElement("div");
+
+    glow.classList.add("flower-glow");
+
+    document
+        .getElementById("flowerGlow")
+        .appendChild(glow);
+
+    const size =
+        Math.random() * 8 + 4;
+
+    glow.style.width = `${size}px`;
+    glow.style.height = `${size}px`;
+
+    gsap.set(glow, {
+
+        x: x,
+        y: -50,
+
+        opacity:
+            Math.random() * 0.6 + 0.2
+
+    });
+
+    gsap.to(glow, {
+
+        y:
+            window.innerHeight + 100,
+
+        x:
+            x +
+            ((Math.random() - 0.5) * 150),
+
+        duration:
+            Math.random() * 10 + 10,
+
+        ease: "none",
+
+        onComplete: () => {
+
+            glow.remove();
+
+        }
+
+    });
+
+}
+
+/* =========================
+   START FLOWERS
+========================= */
+
+function startLuxuryFlowers() {
+
+    const totalFlowers =
+        window.innerWidth < 768 ? 18 : 35;
+
+    for (let i = 0; i < totalFlowers; i++) {
+
+        setTimeout(() => {
+
+            createFlower();
+
+        }, i * 300);
+
+    }
+
+    window.flowerInterval = setInterval(() => {
+
+        createFlower();
+
+    }, window.innerWidth < 768 ? 1400 : 700);
+
+}
+
+/* =========================
+   STOP FLOWERS
+========================= */
+
+function stopLuxuryFlowers() {
+
+    clearInterval(window.flowerInterval);
+
+}
+
+/* =========================
+   INTRO TRANSITION
 ========================= */
 
 enterBtn.addEventListener("click", () => {
 
-    /* AUTO MUSIC */
+    startLuxuryFlowers();
 
     if (!playing) {
 
@@ -138,10 +444,13 @@ enterBtn.addEventListener("click", () => {
 
     tl.to("#websiteContent", {
         opacity: 1,
-        duration: 0.8
+        duration: 0.8,
+        pointerEvents: "auto"
     }, 1.4);
 
     tl.call(() => {
+
+        document.body.style.overflowY = "auto";
 
         ScrollTrigger.refresh();
 
@@ -151,6 +460,20 @@ enterBtn.addEventListener("click", () => {
             initVenueAnimations();
 
         }, 300);
+
+    });
+
+    gsap.to(musicBtn, {
+
+        opacity: 1,
+        duration: 1,
+        delay: 0.5,
+
+        onStart: () => {
+
+            musicBtn.style.pointerEvents = "auto";
+
+        }
 
     });
 
@@ -223,7 +546,9 @@ gsap.from(".memory-note", {
     }
 });
 
-/* HOVER FLOAT */
+/* =========================
+   MEMORY NOTE HOVER
+========================= */
 
 document.querySelectorAll(".memory-note").forEach((note, index) => {
 
@@ -342,6 +667,17 @@ setInterval(() => {
 
     const distance = weddingDate - now;
 
+    if (distance <= 0) {
+
+        document.getElementById("days").innerHTML = "00";
+        document.getElementById("hours").innerHTML = "00";
+        document.getElementById("minutes").innerHTML = "00";
+        document.getElementById("seconds").innerHTML = "00";
+
+        return;
+
+    }
+
     document.getElementById("days").innerHTML =
         Math.floor(distance / (1000 * 60 * 60 * 24));
 
@@ -447,6 +783,8 @@ function resizeCanvas() {
 
     updateBrushSizes();
 
+    canvas.style.touchAction = "none";
+
     const dpr =
         window.devicePixelRatio || 1;
 
@@ -469,8 +807,6 @@ function resizeCanvas() {
         rect.width,
         rect.height
     );
-
-    /* SCRATCH LAYER */
 
     ctx.globalCompositeOperation =
         "source-over";
@@ -497,8 +833,6 @@ function resizeCanvas() {
         rect.height
     );
 
-    /* GLOSS */
-
     ctx.fillStyle =
         "rgba(255,255,255,0.18)";
 
@@ -513,8 +847,6 @@ function resizeCanvas() {
     );
 
     ctx.fill();
-
-    /* TEXT */
 
     const titleSize =
         window.innerWidth < 480 ? 20 :
@@ -549,8 +881,6 @@ function resizeCanvas() {
         rect.width / 2,
         rect.height / 2 + 20
     );
-
-    /* ERASE MODE */
 
     ctx.globalCompositeOperation =
         "destination-out";
@@ -891,4 +1221,3 @@ ScrollTrigger.matchMedia({
     }
 
 });
-
