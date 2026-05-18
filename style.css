@@ -880,3 +880,117 @@
         height: 40px;
     }
 }
+
+/* =====================================================
+   MOBILE PERFORMANCE OPTIMIZATION
+   Keeps the same luxury look, but removes expensive effects on phones.
+===================================================== */
+
+@media (max-width: 768px) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    body::before {
+        opacity: 0.55;
+    }
+
+    /* Hide desktop-only heavy decorative layers */
+    #custom-cursor,
+    #cursor-follower,
+    #flowerGlow {
+        display: none !important;
+    }
+
+    #flowerContainer {
+        opacity: 0.45;
+        z-index: 20;
+    }
+
+    .flower {
+        filter: none !important;
+        opacity: 0.45 !important;
+        will-change: transform;
+    }
+
+    .flower.depth-far,
+    .flower.depth-mid,
+    .flower.depth-near {
+        filter: none !important;
+        opacity: 0.45 !important;
+    }
+
+    /* Reduce blur-heavy glass/neumorphism on mobile */
+    .glass,
+    .music-btn,
+    .romantic-btn {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    .neo-card,
+    .count-box.neo-card,
+    .romantic-btn,
+    .music-btn,
+    .scratch-wrapper {
+        box-shadow: 0 12px 28px rgba(203, 125, 150, 0.12) !important;
+    }
+
+    .neo-card::before {
+        opacity: 0.35;
+    }
+
+    /* Static gradients are cheaper than animated text gradients */
+    .gradient-text {
+        animation: none !important;
+        background-size: 100% auto !important;
+    }
+
+    .floating,
+    .float-icon {
+        animation-duration: 7s !important;
+        transform: translate3d(0,0,0);
+    }
+
+    /* Intro glow layers: smaller blur for smoother mobile */
+    #intro .blur-\[120px\],
+    #intro .blur-\[130px\],
+    .blur-\[120px\],
+    .blur-\[130px\],
+    .blur-\[100px\] {
+        filter: blur(45px) !important;
+    }
+
+    /* Hide scroll percentage circle on small phones to reduce scroll repaint */
+    nav.fixed.top-10.right-10 {
+        display: none !important;
+    }
+
+    /* Make heavy hover transforms calmer on touch devices */
+    .neo-letter:hover,
+    .count-box.neo-card:hover,
+    .romantic-btn:hover {
+        transform: none !important;
+    }
+
+    /* Petal reveal: fewer visible layers and cheaper transforms */
+    #petalRevealCard {
+        transform: translateZ(0);
+        will-change: transform;
+    }
+
+    .mini-petal {
+        will-change: transform, opacity;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+    }
+}

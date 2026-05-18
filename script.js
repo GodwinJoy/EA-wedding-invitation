@@ -1,6 +1,15 @@
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 /* =========================
+   PERFORMANCE FLAGS
+========================= */
+
+const isMobile = window.innerWidth < 768;
+const isSmallMobile = window.innerWidth < 480;
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+
+/* =========================
    BODY LOCK
 ========================= */
 
@@ -13,7 +22,7 @@ document.body.style.overflow = "hidden";
 const cursor = document.getElementById("custom-cursor");
 const follower = document.getElementById("cursor-follower");
 
-if (window.innerWidth < 768) {
+if (isMobile || prefersReducedMotion) {
 
     if (cursor) cursor.style.display = "none";
     if (follower) follower.style.display = "none";
@@ -194,14 +203,17 @@ function createFlower() {
     const startY =
         -150 - Math.random() * 200;
 
-    const size =
-        Math.random() * 30 + 20;
+    const size = isMobile
+        ? Math.random() * 12 + 14
+        : Math.random() * 30 + 20;
 
-    const duration =
-        Math.random() * 8 + 12;
+    const duration = isMobile
+        ? Math.random() * 7 + 14
+        : Math.random() * 8 + 12;
 
-    const drift =
-        (Math.random() - 0.5) * 350;
+    const drift = isMobile
+        ? (Math.random() - 0.5) * 120
+        : (Math.random() - 0.5) * 350;
 
     const rotate =
         Math.random() * 360;
@@ -277,6 +289,7 @@ function createFlower() {
 
     });
 
+    if (!isMobile) {
     gsap.to(flower, {
 
         x:
@@ -308,8 +321,11 @@ function createFlower() {
         ease: "sine.inOut"
 
     });
+    }
 
-    createFlowerGlow(startX);
+    if (!isMobile && !prefersReducedMotion) {
+        createFlowerGlow(startX);
+    }
 
 }
 
@@ -374,8 +390,10 @@ function createFlowerGlow(x) {
 
 function startLuxuryFlowers() {
 
-    const totalFlowers =
-        window.innerWidth < 768 ? 18 : 35;
+    if (!flowerContainer || prefersReducedMotion) return;
+
+    const totalFlowers = isMobile ? 6 : 35;
+    const delayStep = isMobile ? 650 : 300;
 
     for (let i = 0; i < totalFlowers; i++) {
 
@@ -383,15 +401,17 @@ function startLuxuryFlowers() {
 
             createFlower();
 
-        }, i * 300);
+        }, i * delayStep);
 
     }
+
+    clearInterval(window.flowerInterval);
 
     window.flowerInterval = setInterval(() => {
 
         createFlower();
 
-    }, window.innerWidth < 768 ? 1400 : 700);
+    }, isMobile ? 3800 : 700);
 
 }
 
@@ -423,13 +443,13 @@ enterBtn.addEventListener("click", () => {
 
     tl.to("#leftCurtain", {
         x: "-100%",
-        duration: 2,
+        duration: isMobile ? 0.8 : 2,
         ease: "power4.inOut"
     });
 
     tl.to("#rightCurtain", {
         x: "100%",
-        duration: 2,
+        duration: isMobile ? 0.8 : 2,
         ease: "power4.inOut"
     }, 0);
 
@@ -631,10 +651,20 @@ gsap.from(".story-content", {
 });
 
 /* =========================
-   SCROLL PROGRESS
+   SCROLL PROGRESS - THROTTLED
 ========================= */
 
-window.addEventListener("scroll", () => {
+let scrollTicking = false;
+
+function updateScrollProgress() {
+
+    const circle = document.getElementById("scroll-circle");
+    const percentText = document.getElementById("scroll-percent");
+
+    if (!circle || !percentText || isMobile) {
+        scrollTicking = false;
+        return;
+    }
 
     const totalH =
         document.body.scrollHeight - window.innerHeight;
@@ -646,13 +676,22 @@ window.addEventListener("scroll", () => {
     const offset =
         176 - (progress / 100 * 176);
 
-    document.getElementById("scroll-circle")
-        .style.strokeDashoffset = offset;
+    circle.style.strokeDashoffset = offset;
+    percentText.innerText = Math.round(progress) + "%";
 
-    document.getElementById("scroll-percent")
-        .innerText = Math.round(progress) + "%";
+    scrollTicking = false;
+}
 
-});
+window.addEventListener("scroll", () => {
+
+    if (isMobile) return;
+
+    if (!scrollTicking) {
+        window.requestAnimationFrame(updateScrollProgress);
+        scrollTicking = true;
+    }
+
+}, { passive: true });
 
 /* =========================
    COUNTDOWN
@@ -702,29 +741,28 @@ setInterval(() => {
 }, 1000);
 
 /* =========================
-   HEART CLICK EFFECT
+   HEART CLICK EFFECT - DESKTOP ONLY
 ========================= */
 
-document.addEventListener("click", (e) => {
+function createHeartEffect(e) {
 
     const heart = document.createElement("div");
 
     heart.className = "heart";
-
     heart.innerHTML = "❤";
-
     heart.style.left = e.clientX + "px";
     heart.style.top = e.clientY + "px";
 
     document.body.appendChild(heart);
 
     setTimeout(() => {
-
         heart.remove();
-
     }, 1500);
+}
 
-});
+if (!isMobile && !prefersReducedMotion) {
+    document.addEventListener("click", createHeartEffect);
+}
 
 /* =========================
    PETAL ERASER REVEAL EFFECT
@@ -761,7 +799,7 @@ function createPetalField() {
     removedPetals = 0;
     petalRevealDone = false;
 
-    totalPetals = window.innerWidth < 480 ? 75 : 110;
+    totalPetals = isSmallMobile ? 35 : (isMobile ? 55 : 110);
 
     gsap.set(saveDateContent, {
         opacity: 0,
@@ -794,14 +832,16 @@ function createPetalField() {
 
         petalField.appendChild(petal);
 
-        gsap.to(petal, {
-            y: "+=5",
-            rotate: `+=${Math.random() > 0.5 ? 7 : -7}`,
-            duration: Math.random() * 2 + 2,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
-        });
+        if (!isMobile && !prefersReducedMotion) {
+            gsap.to(petal, {
+                y: "+=5",
+                rotate: `+=${Math.random() > 0.5 ? 7 : -7}`,
+                duration: Math.random() * 2 + 2,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+            });
+        }
     }
 }
 
@@ -902,7 +942,7 @@ function handlePetalMove(clientX, clientY, radius) {
     if (petalRevealDone) return;
 
     const petals =
-        document.querySelectorAll(".mini-petal");
+        document.querySelectorAll(".mini-petal:not(.touched)");
 
     petals.forEach((petal) => {
 
