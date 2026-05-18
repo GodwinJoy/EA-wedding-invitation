@@ -727,474 +727,243 @@ document.addEventListener("click", (e) => {
 });
 
 /* =========================
-   SCRATCH CARD
+   PETAL ERASER REVEAL EFFECT
 ========================= */
 
-const canvas =
-    document.getElementById("scratchCanvas");
+const petalCard =
+    document.getElementById("petalRevealCard");
 
-const ctx =
-    canvas.getContext("2d");
+const petalLayer =
+    document.getElementById("petalLayer");
 
-const celebration =
-    document.getElementById("celebration");
+const petalField =
+    document.getElementById("petalField");
 
-let revealed = false;
-let isScratching = false;
+const petalHint =
+    document.getElementById("petalHint");
 
-let lastX = 0;
-let lastY = 0;
+const saveDateContent =
+    document.getElementById("saveDateContent");
 
-let brushSize = 42;
-let circleSize = 22;
+const petalCelebration =
+    document.getElementById("petalCelebration");
 
-/* =========================
-   RESPONSIVE BRUSH
-========================= */
+let removedPetals = 0;
+let totalPetals = 110;
+let petalRevealDone = false;
 
-function updateBrushSizes() {
+function createPetalField() {
 
-    const width = window.innerWidth;
+    if (!petalField || !petalCard || !saveDateContent) return;
 
-    if (width < 480) {
+    petalField.innerHTML = "";
 
-        brushSize = 28;
-        circleSize = 14;
+    removedPetals = 0;
+    petalRevealDone = false;
 
-    } else if (width < 768) {
+    totalPetals = window.innerWidth < 480 ? 75 : 110;
 
-        brushSize = 36;
-        circleSize = 18;
+    gsap.set(saveDateContent, {
+        opacity: 0,
+        scale: 0.92,
+        filter: "blur(8px)"
+    });
 
-    } else {
+    for (let i = 0; i < totalPetals; i++) {
 
-        brushSize = 46;
-        circleSize = 24;
-
-    }
-
-}
-
-/* =========================
-   CANVAS SETUP
-========================= */
-
-function resizeCanvas() {
-
-    updateBrushSizes();
-
-    canvas.style.touchAction = "none";
-
-    const dpr =
-        window.devicePixelRatio || 1;
-
-    const rect =
-        canvas.getBoundingClientRect();
-
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
-
-    canvas.style.width = rect.width + "px";
-    canvas.style.height = rect.height + "px";
-
-    ctx.scale(dpr, dpr);
-
-    ctx.clearRect(
-        0,
-        0,
-        rect.width,
-        rect.height
-    );
-
-    ctx.globalCompositeOperation =
-        "source-over";
-
-    const gradient =
-        ctx.createLinearGradient(
-            0,
-            0,
-            rect.width,
-            rect.height
-        );
-
-    gradient.addColorStop(0, "#f7d8e2");
-    gradient.addColorStop(0.35, "#fbe7ee");
-    gradient.addColorStop(0.7, "#f5d4de");
-    gradient.addColorStop(1, "#efd1da");
-
-    ctx.fillStyle = gradient;
-
-    ctx.fillRect(
-        0,
-        0,
-        rect.width,
-        rect.height
-    );
-
-    ctx.fillStyle =
-        "rgba(255,255,255,0.18)";
-
-    ctx.beginPath();
-
-    ctx.arc(
-        rect.width * 0.2,
-        rect.height * 0.2,
-        rect.width * 0.35,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-    const titleSize =
-        window.innerWidth < 480 ? 20 :
-        window.innerWidth < 768 ? 24 :
-        30;
-
-    const subSize =
-        window.innerWidth < 480 ? 11 :
-        window.innerWidth < 768 ? 13 :
-        16;
-
-    ctx.textAlign = "center";
-
-    ctx.fillStyle = "#ffffff";
-
-    ctx.font =
-        `bold ${titleSize}px Cormorant Garamond`;
-
-    ctx.fillText(
-        "Scratch To Reveal",
-        rect.width / 2,
-        rect.height / 2 - 10
-    );
-
-    ctx.font = `${subSize}px Poppins`;
-
-    ctx.fillStyle =
-        "rgba(255,255,255,0.92)";
-
-    ctx.fillText(
-        "Our Special Day",
-        rect.width / 2,
-        rect.height / 2 + 20
-    );
-
-    ctx.globalCompositeOperation =
-        "destination-out";
-
-    ctx.lineJoin = "round";
-    ctx.lineCap = "round";
-
-}
-
-resizeCanvas();
-
-window.addEventListener(
-    "resize",
-    resizeCanvas
-);
-
-/* =========================
-   SCRATCH
-========================= */
-
-function scratch(x, y) {
-
-    ctx.beginPath();
-
-    ctx.lineWidth = brushSize;
-
-    ctx.moveTo(lastX, lastY);
-
-    ctx.lineTo(x, y);
-
-    ctx.stroke();
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x,
-        y,
-        circleSize,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-    lastX = x;
-    lastY = y;
-
-    clearTimeout(window.revealCheck);
-
-    window.revealCheck = setTimeout(() => {
-
-        checkReveal();
-
-    }, 120);
-
-}
-
-/* =========================
-   POSITION
-========================= */
-
-function getPosition(e) {
-
-    const rect =
-        canvas.getBoundingClientRect();
-
-    if (e.touches) {
-
-        return {
-            x: e.touches[0].clientX - rect.left,
-            y: e.touches[0].clientY - rect.top
-        };
-
-    }
-
-    return {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top
-    };
-
-}
-
-/* =========================
-   START SCRATCH
-========================= */
-
-function startScratch(e) {
-
-    isScratching = true;
-
-    const pos = getPosition(e);
-
-    lastX = pos.x;
-    lastY = pos.y;
-
-    scratch(pos.x, pos.y);
-
-}
-
-/* =========================
-   MOVE SCRATCH
-========================= */
-
-function moveScratch(e) {
-
-    if (!isScratching) return;
-
-    e.preventDefault();
-
-    const pos = getPosition(e);
-
-    scratch(pos.x, pos.y);
-
-}
-
-/* =========================
-   END SCRATCH
-========================= */
-
-function endScratch() {
-
-    isScratching = false;
-
-}
-
-/* =========================
-   EVENTS
-========================= */
-
-canvas.addEventListener(
-    "mousedown",
-    startScratch
-);
-
-canvas.addEventListener(
-    "mousemove",
-    moveScratch
-);
-
-canvas.addEventListener(
-    "mouseup",
-    endScratch
-);
-
-canvas.addEventListener(
-    "mouseleave",
-    endScratch
-);
-
-canvas.addEventListener(
-    "touchstart",
-    startScratch
-);
-
-canvas.addEventListener(
-    "touchmove",
-    moveScratch,
-    { passive: false }
-);
-
-canvas.addEventListener(
-    "touchend",
-    endScratch
-);
-
-/* =========================
-   REVEAL CHECK
-========================= */
-
-function checkReveal() {
-
-    if (revealed) return;
-
-    const imageData =
-        ctx.getImageData(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-    let transparent = 0;
-
-    for (
-        let i = 3;
-        i < imageData.data.length;
-        i += 4
-    ) {
-
-        if (imageData.data[i] === 0) {
-
-            transparent++;
-
-        }
-
-    }
-
-    const percent =
-        (
-            transparent /
-            (canvas.width * canvas.height)
-        ) * 100;
-
-    if (percent > 42) {
-
-        revealed = true;
-
-        celebrationEffect();
-
-        gsap.to(canvas, {
-            opacity: 0,
-            duration: 1,
-            ease: "power2.out"
-        });
-
-        gsap.to("#countdownSection", {
-
-            opacity: 1,
-            y: 0,
-
-            duration: 1.4,
-
-            ease: "power4.out",
-
-            delay: 0.5,
-
-            onStart: () => {
-
-                document
-                    .getElementById(
-                        "countdownSection"
-                    )
-                    .classList
-                    .remove(
-                        "pointer-events-none"
-                    );
-
-            }
-
-        });
-
-        gsap.to(window, {
-
-            scrollTo: "#countdownSection",
-
-            duration: 1.5,
-
-            delay: 0.8,
-
-            ease: "power2.inOut"
-
-        });
-
-    }
-
-}
-
-/* =========================
-   CELEBRATION
-========================= */
-
-function celebrationEffect() {
-
-    celebration.classList.remove("hidden");
-
-    for (let i = 0; i < 80; i++) {
-
-        const c =
+        const petal =
             document.createElement("div");
 
-        c.className =
-            "absolute w-3 h-3 rounded-full";
+        petal.className = "mini-petal";
 
-        const colors = [
-            "#cb7d96",
-            "#d9aa74",
-            "#fff",
-            "#f3d6de"
-        ];
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        const rotate = Math.random() * 360;
+        const scale = Math.random() * 0.5 + 0.65;
 
-        c.style.background =
-            colors[
-            Math.floor(
-                Math.random() * colors.length
-            )
-            ];
+        petal.style.left = `${x}%`;
+        petal.style.top = `${y}%`;
 
-        c.style.left =
-            Math.random() * 100 + "%";
+        gsap.set(petal, {
+            xPercent: -50,
+            yPercent: -50,
+            rotate,
+            scale,
+            opacity: 1
+        });
 
-        c.style.top = "-20px";
+        petalField.appendChild(petal);
 
-        celebration.appendChild(c);
+        gsap.to(petal, {
+            y: "+=5",
+            rotate: `+=${Math.random() > 0.5 ? 7 : -7}`,
+            duration: Math.random() * 2 + 2,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+    }
+}
 
-        gsap.to(c, {
+function removePetal(petal) {
 
-            y: 500,
+    if (
+        !petal ||
+        petal.classList.contains("touched") ||
+        petalRevealDone
+    ) return;
 
-            x:
-                (Math.random() - 0.5)
-                * 300,
+    petal.classList.add("touched");
 
-            rotation: 720,
+    removedPetals++;
 
-            duration:
-                3 + Math.random() * 2,
+    gsap.to(petal, {
+        scale: 0,
+        opacity: 0,
+        rotate: "+=140",
+        y: "-=45",
+        duration: 0.45,
+        ease: "back.in(1.7)",
+        onComplete: () => petal.remove()
+    });
 
-            ease: "power2.out",
+    if (petalHint && removedPetals > 8) {
 
-            onComplete: () => c.remove()
-
+        gsap.to(petalHint, {
+            opacity: 0,
+            duration: 0.5
         });
 
     }
+
+    const revealedPercent =
+        removedPetals / totalPetals;
+
+    if (revealedPercent >= 0.68) {
+
+        finishPetalReveal();
+
+    }
+
+}
+
+function finishPetalReveal() {
+
+    if (petalRevealDone) return;
+
+    petalRevealDone = true;
+
+    gsap.to(".mini-petal", {
+        scale: 0,
+        opacity: 0,
+        y: "-=80",
+        rotate: "+=180",
+        stagger: 0.008,
+        duration: 0.6,
+        ease: "power3.in",
+        onComplete: () => {
+
+            if (petalLayer) {
+                petalLayer.style.display = "none";
+            }
+
+        }
+    });
+
+    gsap.to(saveDateContent, {
+        opacity: 1,
+        scale: 1,
+        filter: "blur(0px)",
+        duration: 1.1,
+        ease: "power3.out"
+    });
+
+    gsap.to("#countdownSection", {
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        delay: 1.2,
+        ease: "power4.out",
+        onStart: () => {
+
+            const countdown =
+                document.getElementById("countdownSection");
+
+            if (countdown) {
+                countdown.classList.remove("pointer-events-none");
+            }
+
+        }
+    });
+}
+
+function handlePetalMove(clientX, clientY, radius) {
+
+    if (petalRevealDone) return;
+
+    const petals =
+        document.querySelectorAll(".mini-petal");
+
+    petals.forEach((petal) => {
+
+        const rect =
+            petal.getBoundingClientRect();
+
+        const px =
+            rect.left + rect.width / 2;
+
+        const py =
+            rect.top + rect.height / 2;
+
+        const distance =
+            Math.hypot(clientX - px, clientY - py);
+
+        if (distance < radius) {
+            removePetal(petal);
+        }
+
+    });
+
+}
+
+/* INIT */
+
+if (petalCard && petalField) {
+
+    createPetalField();
+
+    petalCard.addEventListener("mousemove", (e) => {
+
+        handlePetalMove(
+            e.clientX,
+            e.clientY,
+            42
+        );
+
+    });
+
+    petalCard.addEventListener("touchmove", (e) => {
+
+        const touch =
+            e.touches[0];
+
+        handlePetalMove(
+            touch.clientX,
+            touch.clientY,
+            50
+        );
+
+    }, { passive: true });
+
+    petalCard.addEventListener("click", (e) => {
+
+        handlePetalMove(
+            e.clientX,
+            e.clientY,
+            58
+        );
+
+    });
 
 }
 

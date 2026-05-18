@@ -841,4 +841,42 @@
 
 }
 
+/* =========================
+   PETAL ERASER REVEAL
+========================= */
 
+#petalRevealCard {
+    touch-action: none;
+}
+
+#petalField {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+}
+
+.mini-petal {
+    position: absolute;
+    width: 34px;
+    height: 46px;
+    border-radius: 80% 20% 80% 20%;
+    background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,0.95), transparent 35%),
+        linear-gradient(145deg, #fff8fb, #efc6d4);
+    box-shadow:
+        4px 4px 12px rgba(203,125,150,0.18),
+        -3px -3px 8px rgba(255,255,255,0.8);
+    transform-origin: center;
+    will-change: transform, opacity;
+}
+
+.mini-petal.touched {
+    pointer-events: none;
+}
+
+@media(max-width:480px) {
+    .mini-petal {
+        width: 30px;
+        height: 40px;
+    }
+}

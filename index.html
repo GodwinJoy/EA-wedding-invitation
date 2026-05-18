@@ -408,140 +408,275 @@ class="fixed inset-0 pointer-events-none z-[9998] overflow-hidden">
         </div>
     </div>
 </section>
-<!-- SCRATCH CARD SECTION -->
+
+<!-- =========================================
+        COMPACT RESPONSIVE PETAL REVEAL
+========================================== -->
+
 <section
-    class="relative py-14 sm:py-16 px-4 overflow-hidden bg-[#fffaf7]">
+    class="relative py-12 sm:py-14 overflow-hidden bg-[linear-gradient(to_bottom,#fffaf8,#fdf3f5,#fffaf8)]">
 
-    <!-- BACKGROUND GLOW -->
+    <!-- SOFT BACKGROUND GLOWS -->
     <div
-        class="absolute -top-20 -left-20 w-[220px] h-[220px] bg-[#f5dfe5] rounded-full blur-[90px] opacity-30">
+        class="absolute -top-20 left-[-80px] w-[220px] h-[220px] rounded-full bg-[#f5d6df] blur-[70px] opacity-25">
     </div>
 
     <div
-        class="absolute -bottom-20 -right-20 w-[220px] h-[220px] bg-[#f7eadf] rounded-full blur-[90px] opacity-25">
+        class="absolute bottom-[-90px] right-[-70px] w-[210px] h-[210px] rounded-full bg-[#ecd4af] blur-[70px] opacity-25">
     </div>
 
-    <div class="relative z-10 max-w-4xl mx-auto text-center">
+    <!-- MAIN CONTAINER -->
+    <div
+        class="relative z-10 max-w-4xl mx-auto px-5 grid lg:grid-cols-2 gap-8 lg:gap-10 items-center min-h-[420px]">
 
-        <!-- TOP -->
-        <div class="mb-8">
+        <!-- =======================
+                LEFT CONTENT
+        ======================== -->
 
-            <div
-                class="flex items-center justify-center gap-3 mb-4">
+        <div class="text-center lg:text-left">
 
-                <span
-                    class="w-10 h-[1px] bg-[#cb7d96]/40">
-                </span>
-
-                <p
-                    class="uppercase tracking-[5px] text-[#cb7d96] text-[10px] font-semibold">
-                    Scratch To Reveal
-                </p>
-
-                <span
-                    class="w-10 h-[1px] bg-[#cb7d96]/40">
-                </span>
-            </div>
-
+            <!-- HEADING -->
             <h2
-                class="text-[34px] sm:text-[48px] md:text-[58px] font-bold leading-none text-[#6d565d]">
+                class="mt-5 text-[36px] sm:text-[48px] md:text-[54px] leading-[0.92] font-semibold text-[#5d464d]">
 
                 Save The
-                <span class="gradient-text">
+
+                <span
+                    class="block bg-gradient-to-r from-[#cb7d96] to-[#d9aa74] bg-clip-text text-transparent">
+
                     Date
+
                 </span>
+
             </h2>
-        </div>
 
-        <!-- SCRATCH CARD -->
-        <div id="scratchWrapper"
-            class="relative w-full max-w-[240px] sm:max-w-[270px] md:max-w-[300px] h-[320px] sm:h-[360px] md:h-[390px] mx-auto rounded-[30px] overflow-hidden border border-white/50 bg-white/70 backdrop-blur-xl shadow-[0_14px_40px_rgba(214,185,193,0.14)]">
-
-            <!-- CONTENT -->
+            <!-- MINI DETAILS -->
             <div
-                class="absolute inset-0 z-0 flex flex-col items-center justify-center px-4 py-5 bg-gradient-to-br from-[#fffdfc] via-[#f9ecef] to-[#cc7c95]">
+                class="mt-7 flex flex-wrap justify-center lg:justify-start gap-3">
 
-                <!-- HEART -->
                 <div
-                    class="relative z-10 w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center mb-4">
+                    class="px-4 py-2 rounded-xl bg-white/75 backdrop-blur-xl border border-white shadow-[0_8px_22px_rgba(203,125,150,0.05)]">
 
-                    <i
-                        class="fa-solid fa-heart text-white text-sm floating">
-                    </i>
+                    <p class="uppercase tracking-[2px] text-[8px] text-[#bb8a97]">
+                        Wedding Day
+                    </p>
+
+                    <h4 class="text-[#5d464d] text-[13px] font-semibold mt-1">
+                        26 October 2026
+                    </h4>
+
                 </div>
 
-                <!-- NAMES -->
-                <h2
-                    class="relative z-10 text-[28px] sm:text-[34px] elegant-font text-[#6d565d] mb-5 leading-none text-center">
-
-                    Edwin
-                    <span class="text-[#d9aa74]">&</span>
-                    Ann
-                </h2>
-
-                <!-- CALENDAR -->
                 <div
-                    class="relative z-10 w-full max-w-[190px] rounded-[22px] overflow-hidden bg-white/85 backdrop-blur-xl border border-white/60 shadow-[8px_8px_20px_rgba(0,0,0,0.04),-8px_-8px_20px_rgba(255,255,255,0.9)]">
+                    class="px-4 py-2 rounded-xl bg-white/75 backdrop-blur-xl border border-white shadow-[0_8px_22px_rgba(203,125,150,0.05)]">
 
-                    <!-- TOP -->
-                    <div
-                        class="relative py-3 bg-gradient-to-r from-[#cb7d96] via-[#d69aa8] to-[#d9aa74]">
+                    <p class="uppercase tracking-[2px] text-[8px] text-[#bb8a97]">
+                        Ceremony
+                    </p>
 
-                        <div
-                            class="absolute left-3 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-white/60">
-                        </div>
+                    <h4 class="text-[#5d464d] text-[13px] font-semibold mt-1">
+                        Monday • 3 PM
+                    </h4>
 
-                        <div
-                            class="absolute right-3 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-white/60">
-                        </div>
-
-                        <p
-                            class="uppercase tracking-[2px] text-[8px] text-white">
-                            October 2026
-                        </p>
-                    </div>
-
-                    <!-- BODY -->
-                    <div class="py-5 px-3">
-
-                        <h3
-                            class="text-4xl sm:text-5xl font-bold text-[#6d565d] leading-none mb-2">
-                            26
-                        </h3>
-
-                        <div
-                            class="w-8 h-[1px] bg-[#d9aa74]/40 mx-auto mb-2">
-                        </div>
-
-                        <p
-                            class="uppercase tracking-[2px] text-[8px] text-[#b07d8b] mb-2">
-                            Monday • 3 PM
-                        </p>
-
-                    </div>
                 </div>
 
-                <!-- TEXT -->
-                <p
-                    class="relative z-10 mt-5 text-white/80 text-[9px] tracking-[2px] uppercase">
-                    Scratch The Card
-                </p>
             </div>
 
-            <!-- SCRATCH -->
-            <canvas id="scratchCanvas"
-                class="absolute inset-0 z-20 w-full h-full">
-            </canvas>
-
-            <!-- CELEBRATION -->
-            <div id="celebration"
-                class="absolute inset-0 z-30 pointer-events-none hidden">
-            </div>
         </div>
+
+        <!-- =======================
+                REVEAL CARD
+        ======================== -->
+
+        <div class="relative flex justify-center">
+
+            <!-- CARD GLOW -->
+            <div
+                class="absolute w-[240px] h-[240px] rounded-full bg-[#f5dde5] blur-[55px] opacity-35">
+            </div>
+
+            <!-- DEPTH LAYER -->
+            <div
+                class="absolute w-[250px] h-[390px] rounded-[40px]
+                bg-gradient-to-b from-white/40 to-[#f5d6df]/30
+                blur-2xl opacity-70">
+            </div>
+
+            <!-- MAIN CARD -->
+            <div id="petalRevealCard"
+                class="relative w-[240px] h-[390px]
+                sm:w-[265px] sm:h-[410px]
+                rounded-[32px]
+                overflow-hidden
+                bg-white
+                border border-white/80
+                backdrop-blur-2xl
+                shadow-[0_18px_50px_rgba(203,125,150,0.14)]">
+
+                <!-- INNER BORDER -->
+                <div
+                    class="absolute inset-[8px]
+                    rounded-[26px]
+                    border border-[#ead2d9]/65
+                    z-10 pointer-events-none">
+                </div>
+
+                <!-- =======================
+                        REVEALED CONTENT
+                ======================== -->
+
+                <div id="saveDateContent"
+                    class="absolute inset-0 z-0 flex flex-col items-center justify-center
+                    text-center px-5 opacity-0 scale-[0.9] blur-sm
+                    transition-all duration-[1400ms]">
+
+                    <!-- CROSS -->
+                    <div
+                        class="w-11 h-11 rounded-full bg-white/75 border border-white/80
+                        flex items-center justify-center mb-3
+                        shadow-[0_10px_25px_rgba(203,125,150,0.12)]">
+
+                        <i class="fa-solid fa-cross text-[#bb8091] text-xs floating"></i>
+
+                    </div>
+
+                    <!-- LABEL -->
+                    <p class="uppercase tracking-[4px] text-[8px] text-[#c28b9a] mb-3">
+                        Save The Date
+                    </p>
+
+                    <!-- NAMES -->
+                    <h2
+                        class="text-[36px] sm:text-[40px]
+                        elegant-font leading-none text-[#5d464d]">
+
+                        Edwin
+
+                    </h2>
+
+                    <div class="flex items-center gap-3 my-2">
+
+                        <span class="w-7 h-[1px] bg-[#dfc3cb]"></span>
+
+                        <span class="text-[#d9aa74] text-[24px] elegant-font">
+                            &
+                        </span>
+
+                        <span class="w-7 h-[1px] bg-[#dfc3cb]"></span>
+
+                    </div>
+
+                    <h2
+                        class="text-[36px] sm:text-[40px]
+                        elegant-font leading-none text-[#5d464d] mb-4">
+
+                        Ann
+
+                    </h2>
+
+                    <!-- DATE CARD -->
+                    <div
+                        class="w-full max-w-[165px]
+                        rounded-[20px]
+                        overflow-hidden
+                        bg-white/50
+                        border border-white/75
+                        shadow-[0_13px_30px_rgba(75,45,55,0.10)]">
+
+                        <!-- TOP -->
+                        <div
+                            class="py-2 bg-gradient-to-r from-[#9d6475] via-[#cb8d9d] to-[#d9aa74]">
+
+                            <p class="uppercase tracking-[3px] text-[7px] text-white">
+                                October 2026
+                            </p>
+
+                        </div>
+
+                        <!-- DATE -->
+                        <div class="py-3 px-3">
+
+                            <h3
+                                class="text-[46px] leading-none font-semibold text-[#5d464d]">
+                                26
+                            </h3>
+
+                            <div
+                                class="w-9 h-[1px] bg-[#d9aa74]/60 mx-auto my-2">
+                            </div>
+
+                            <p
+                                class="uppercase tracking-[2px] text-[7px] text-[#8f6975]">
+                                Monday • 3 PM
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- =======================
+                        PETAL LAYER
+                ======================== -->
+
+                <div id="petalLayer"
+                    class="absolute inset-0 z-20 overflow-hidden
+                    bg-[linear-gradient(to_bottom,#fff8fa,#fdf1f4)]">
+
+                    <!-- PETAL FIELD -->
+                    <div id="petalField"
+                        class="absolute inset-0">
+                    </div>
+
+                    <!-- HINT -->
+                    <div id="petalHint"
+                        class="absolute inset-0 flex flex-col items-center justify-center
+                        z-30 pointer-events-none">
+
+                        <div
+                            class="w-14 h-14 rounded-full
+                            bg-white/75 border border-white/80
+                            flex items-center justify-center
+                            shadow-[0_12px_30px_rgba(203,125,150,0.12)]">
+
+                            <i
+                                class="fa-solid fa-hand-pointer text-[#cb7d96] text-base floating">
+                            </i>
+
+                        </div>
+
+                        <p
+                            class="mt-4 uppercase tracking-[4px]
+                            text-[#bf8295] text-[8px] font-semibold">
+
+                            Reveal
+
+                        </p>
+
+                        <p
+                            class="mt-1 text-[9px] italic text-[#9d7d86]">
+
+                            Swipe petals
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- CELEBRATION -->
+                <div id="petalCelebration"
+                    class="absolute inset-0 z-30 pointer-events-none hidden">
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
+
 </section>
-
-
 
 <!-- COUNTDOWN -->
 <section id="countdownSection"
