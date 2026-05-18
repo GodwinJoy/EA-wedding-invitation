@@ -134,6 +134,46 @@ musicBtn.addEventListener("click", () => {
 });
 
 /* =========================
+   AUTO PAUSE / RESUME MUSIC
+========================= */
+
+let wasPlayingBeforeHidden = false;
+
+document.addEventListener("visibilitychange", () => {
+
+    if (document.hidden) {
+
+        wasPlayingBeforeHidden = playing;
+
+        if (playing && music) {
+
+            music.pause();
+
+        }
+
+    } else {
+
+        if (wasPlayingBeforeHidden && music) {
+
+            music.play()
+                .then(() => {
+
+                    playing = true;
+
+                    musicBtn.innerHTML =
+                        `<i class="fa-solid fa-pause"></i>`;
+
+                })
+                .catch(() => {});
+
+        }
+
+    }
+
+});
+
+
+/* =========================
    LUXURY FLOWERS
 ========================= */
 
