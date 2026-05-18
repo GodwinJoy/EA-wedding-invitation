@@ -1,36 +1,117 @@
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 /* =========================
    CUSTOM CURSOR
 ========================= */
 
-const cursor = document.getElementById('custom-cursor');
-const follower = document.getElementById('cursor-follower');
+const cursor = document.getElementById("custom-cursor");
+const follower = document.getElementById("cursor-follower");
 
-document.addEventListener('mousemove', (e) => {
+if (window.innerWidth < 768) {
 
-    gsap.to(cursor, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.1
+    cursor.style.display = "none";
+    follower.style.display = "none";
+
+} else {
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    window.addEventListener("mousemove", (e) => {
+
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
     });
 
-    gsap.to(follower, {
-        x: e.clientX - 14,
-        y: e.clientY - 14,
-        duration: 0.3
+    gsap.ticker.add(() => {
+
+        gsap.set(cursor, {
+            x: mouseX,
+            y: mouseY
+        });
+
+        gsap.to(follower, {
+            x: mouseX - 14,
+            y: mouseY - 14,
+            duration: 0.3,
+            ease: "power2.out"
+        });
+
     });
+
+}
+
+/* =========================
+   MUSIC
+========================= */
+
+const music = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicToggle");
+const enterBtn = document.getElementById("enterWebsite");
+
+let playing = false;
+
+/* PLAY MUSIC */
+
+function playMusic() {
+
+    music.play()
+        .then(() => {
+
+            playing = true;
+
+            musicBtn.innerHTML =
+                `<i class="fa-solid fa-pause"></i>`;
+
+        })
+        .catch(err => {
+            console.log("Autoplay blocked:", err);
+        });
+}
+
+/* PAUSE MUSIC */
+
+function pauseMusic() {
+
+    music.pause();
+
+    playing = false;
+
+    musicBtn.innerHTML =
+        `<i class="fa-solid fa-music"></i>`;
+}
+
+/* MUSIC TOGGLE */
+
+musicBtn.addEventListener("click", () => {
+
+    if (!playing) {
+
+        playMusic();
+
+    } else {
+
+        pauseMusic();
+
+    }
 
 });
-
 
 /* =========================
    INTRO → WEBSITE TRANSITION
 ========================= */
 
-document.getElementById("enterWebsite")
-.addEventListener("click", () => {
+enterBtn.addEventListener("click", () => {
+
+    /* AUTO MUSIC */
+
+    if (!playing) {
+
+        playMusic();
+
+    }
 
     const tl = gsap.timeline();
 
@@ -65,14 +146,15 @@ document.getElementById("enterWebsite")
         ScrollTrigger.refresh();
 
         setTimeout(() => {
+
             initHeroAnimation();
-            initVenueAnimations(); // ✅ FIX: ensure venue shows
+            initVenueAnimations();
+
         }, 300);
 
     });
 
 });
-
 
 /* =========================
    HERO ANIMATION
@@ -122,16 +204,16 @@ function initHeroAnimation() {
         duration: 1,
         ease: "power4.out"
     }, "-=1");
+
 }
 
 /* =========================
-   MEMORY NOTES ANIMATION
+   MEMORY NOTES
 ========================= */
 
 gsap.from(".memory-note", {
     y: 80,
     opacity: 0,
-    rotate: 0,
     stagger: 0.2,
     duration: 1.2,
     ease: "power3.out",
@@ -141,14 +223,15 @@ gsap.from(".memory-note", {
     }
 });
 
-/* hover float */
-document.querySelectorAll(".memory-note").forEach(note => {
+/* HOVER FLOAT */
+
+document.querySelectorAll(".memory-note").forEach((note, index) => {
 
     note.addEventListener("mouseenter", () => {
 
         gsap.to(note, {
             y: -12,
-            rotate: 0,
+            rotate: index % 2 === 0 ? 2 : -2,
             duration: 0.4
         });
 
@@ -158,6 +241,7 @@ document.querySelectorAll(".memory-note").forEach(note => {
 
         gsap.to(note, {
             y: 0,
+            rotate: index % 2 === 0 ? 2 : -2,
             duration: 0.4
         });
 
@@ -165,9 +249,8 @@ document.querySelectorAll(".memory-note").forEach(note => {
 
 });
 
-
 /* =========================
-   VENUE ANIMATIONS (FIXED)
+   VENUE ANIMATIONS
 ========================= */
 
 function initVenueAnimations() {
@@ -198,26 +281,6 @@ function initVenueAnimations() {
 
 }
 
-
-/* =========================
-   SCROLL PROGRESS
-========================= */
-
-window.addEventListener('scroll', () => {
-
-    const totalH = document.body.scrollHeight - window.innerHeight;
-    const progress = (window.scrollY / totalH) * 100;
-    const offset = 176 - (progress / 100 * 176);
-
-    document.getElementById('scroll-circle')
-        .style.strokeDashoffset = offset;
-
-    document.getElementById('scroll-percent')
-        .innerText = Math.round(progress) + "%";
-
-});
-
-
 /* =========================
    STORY
 ========================= */
@@ -242,8 +305,29 @@ gsap.from(".story-content", {
     }
 });
 
+/* =========================
+   SCROLL PROGRESS
+========================= */
 
+window.addEventListener("scroll", () => {
 
+    const totalH =
+        document.body.scrollHeight - window.innerHeight;
+
+    const progress = totalH > 0
+        ? (window.scrollY / totalH) * 100
+        : 0;
+
+    const offset =
+        176 - (progress / 100 * 176);
+
+    document.getElementById("scroll-circle")
+        .style.strokeDashoffset = offset;
+
+    document.getElementById("scroll-percent")
+        .innerText = Math.round(progress) + "%";
+
+});
 
 /* =========================
    COUNTDOWN
@@ -255,109 +339,31 @@ const weddingDate =
 setInterval(() => {
 
     const now = new Date().getTime();
+
     const distance = weddingDate - now;
 
     document.getElementById("days").innerHTML =
         Math.floor(distance / (1000 * 60 * 60 * 24));
 
     document.getElementById("hours").innerHTML =
-        Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        Math.floor(
+            (distance % (1000 * 60 * 60 * 24))
+            / (1000 * 60 * 60)
+        );
 
     document.getElementById("minutes").innerHTML =
-        Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        Math.floor(
+            (distance % (1000 * 60 * 60))
+            / (1000 * 60)
+        );
 
     document.getElementById("seconds").innerHTML =
-        Math.floor((distance % (1000 * 60)) / 1000);
+        Math.floor(
+            (distance % (1000 * 60))
+            / 1000
+        );
 
 }, 1000);
-
-
-/* =========================
-   MUSIC
-========================= */
-
-const music = document.getElementById("bgMusic");
-const musicBtn = document.getElementById("musicToggle");
-const enterBtn = document.getElementById("enterWebsite");
-
-let playing = false;
-
-/* PLAY MUSIC FUNCTION */
-
-function playMusic() {
-
-    music.play()
-        .then(() => {
-
-            playing = true;
-
-            musicBtn.innerHTML =
-                `<i class="fa-solid fa-pause"></i>`;
-
-        })
-        .catch(err => {
-            console.log("Autoplay blocked:", err);
-        });
-}
-
-/* PAUSE MUSIC FUNCTION */
-
-function pauseMusic() {
-
-    music.pause();
-
-    playing = false;
-
-    musicBtn.innerHTML =
-        `<i class="fa-solid fa-music"></i>`;
-}
-
-/* MUSIC BUTTON CLICK */
-
-musicBtn.addEventListener("click", () => {
-
-    if (!playing) {
-
-        playMusic();
-
-    } else {
-
-        pauseMusic();
-    }
-
-});
-
-/* ENTER WEBSITE BUTTON */
-
-enterBtn.addEventListener("click", () => {
-
-    /* AUTO START MUSIC */
-
-    if (!playing) {
-
-        playMusic();
-    }
-
-    /* YOUR EXISTING INTRO ANIMATION CODE */
-
-    gsap.to("#intro", {
-        opacity: 0,
-        duration: 1.2,
-        ease: "power3.inOut",
-        onComplete: () => {
-
-            document.getElementById("intro").style.display = "none";
-
-            gsap.to("#websiteContent", {
-                opacity: 1,
-                duration: 1
-            });
-
-        }
-    });
-
-});
-
 
 /* =========================
    HEART CLICK EFFECT
@@ -366,7 +372,9 @@ enterBtn.addEventListener("click", () => {
 document.addEventListener("click", (e) => {
 
     const heart = document.createElement("div");
+
     heart.className = "heart";
+
     heart.innerHTML = "❤";
 
     heart.style.left = e.clientX + "px";
@@ -374,18 +382,26 @@ document.addEventListener("click", (e) => {
 
     document.body.appendChild(heart);
 
-    setTimeout(() => heart.remove(), 1500);
+    setTimeout(() => {
+
+        heart.remove();
+
+    }, 1500);
 
 });
-
 
 /* =========================
    SCRATCH CARD
 ========================= */
 
-const canvas = document.getElementById("scratchCanvas");
-const ctx = canvas.getContext("2d");
-const celebration = document.getElementById("celebration");
+const canvas =
+    document.getElementById("scratchCanvas");
+
+const ctx =
+    canvas.getContext("2d");
+
+const celebration =
+    document.getElementById("celebration");
 
 let revealed = false;
 let isScratching = false;
@@ -418,7 +434,9 @@ function updateBrushSizes() {
 
         brushSize = 46;
         circleSize = 24;
+
     }
+
 }
 
 /* =========================
@@ -429,9 +447,11 @@ function resizeCanvas() {
 
     updateBrushSizes();
 
-    const dpr = window.devicePixelRatio || 1;
+    const dpr =
+        window.devicePixelRatio || 1;
 
-    const rect = canvas.getBoundingClientRect();
+    const rect =
+        canvas.getBoundingClientRect();
 
     ctx.setTransform(1, 0, 0, 1, 0, 0);
 
@@ -443,18 +463,25 @@ function resizeCanvas() {
 
     ctx.scale(dpr, dpr);
 
-    ctx.clearRect(0, 0, rect.width, rect.height);
-
-    /* SCRATCH LAYER */
-
-    ctx.globalCompositeOperation = "source-over";
-
-    const gradient = ctx.createLinearGradient(
+    ctx.clearRect(
         0,
         0,
         rect.width,
         rect.height
     );
+
+    /* SCRATCH LAYER */
+
+    ctx.globalCompositeOperation =
+        "source-over";
+
+    const gradient =
+        ctx.createLinearGradient(
+            0,
+            0,
+            rect.width,
+            rect.height
+        );
 
     gradient.addColorStop(0, "#f7d8e2");
     gradient.addColorStop(0.35, "#fbe7ee");
@@ -470,9 +497,10 @@ function resizeCanvas() {
         rect.height
     );
 
-    /* GLOSSY LIGHT */
+    /* GLOSS */
 
-    ctx.fillStyle = "rgba(255,255,255,0.18)";
+    ctx.fillStyle =
+        "rgba(255,255,255,0.18)";
 
     ctx.beginPath();
 
@@ -486,7 +514,7 @@ function resizeCanvas() {
 
     ctx.fill();
 
-    /* RESPONSIVE TEXT */
+    /* TEXT */
 
     const titleSize =
         window.innerWidth < 480 ? 20 :
@@ -502,7 +530,8 @@ function resizeCanvas() {
 
     ctx.fillStyle = "#ffffff";
 
-    ctx.font = `bold ${titleSize}px Cormorant Garamond`;
+    ctx.font =
+        `bold ${titleSize}px Cormorant Garamond`;
 
     ctx.fillText(
         "Scratch To Reveal",
@@ -512,7 +541,8 @@ function resizeCanvas() {
 
     ctx.font = `${subSize}px Poppins`;
 
-    ctx.fillStyle = "rgba(255,255,255,0.92)";
+    ctx.fillStyle =
+        "rgba(255,255,255,0.92)";
 
     ctx.fillText(
         "Our Special Day",
@@ -522,10 +552,12 @@ function resizeCanvas() {
 
     /* ERASE MODE */
 
-    ctx.globalCompositeOperation = "destination-out";
+    ctx.globalCompositeOperation =
+        "destination-out";
 
     ctx.lineJoin = "round";
     ctx.lineCap = "round";
+
 }
 
 resizeCanvas();
@@ -536,7 +568,7 @@ window.addEventListener(
 );
 
 /* =========================
-   SCRATCH FUNCTION
+   SCRATCH
 ========================= */
 
 function scratch(x, y) {
@@ -566,7 +598,14 @@ function scratch(x, y) {
     lastX = x;
     lastY = y;
 
-    checkReveal();
+    clearTimeout(window.revealCheck);
+
+    window.revealCheck = setTimeout(() => {
+
+        checkReveal();
+
+    }, 120);
+
 }
 
 /* =========================
@@ -575,7 +614,8 @@ function scratch(x, y) {
 
 function getPosition(e) {
 
-    const rect = canvas.getBoundingClientRect();
+    const rect =
+        canvas.getBoundingClientRect();
 
     if (e.touches) {
 
@@ -583,12 +623,14 @@ function getPosition(e) {
             x: e.touches[0].clientX - rect.left,
             y: e.touches[0].clientY - rect.top
         };
+
     }
 
     return {
         x: e.clientX - rect.left,
         y: e.clientY - rect.top
     };
+
 }
 
 /* =========================
@@ -605,6 +647,7 @@ function startScratch(e) {
     lastY = pos.y;
 
     scratch(pos.x, pos.y);
+
 }
 
 /* =========================
@@ -620,6 +663,7 @@ function moveScratch(e) {
     const pos = getPosition(e);
 
     scratch(pos.x, pos.y);
+
 }
 
 /* =========================
@@ -629,22 +673,48 @@ function moveScratch(e) {
 function endScratch() {
 
     isScratching = false;
+
 }
 
 /* =========================
    EVENTS
 ========================= */
 
-canvas.addEventListener("mousedown", startScratch);
-canvas.addEventListener("mousemove", moveScratch);
-canvas.addEventListener("mouseup", endScratch);
-canvas.addEventListener("mouseleave", endScratch);
+canvas.addEventListener(
+    "mousedown",
+    startScratch
+);
 
-canvas.addEventListener("touchstart", startScratch);
-canvas.addEventListener("touchmove", moveScratch, {
-    passive: false
-});
-canvas.addEventListener("touchend", endScratch);
+canvas.addEventListener(
+    "mousemove",
+    moveScratch
+);
+
+canvas.addEventListener(
+    "mouseup",
+    endScratch
+);
+
+canvas.addEventListener(
+    "mouseleave",
+    endScratch
+);
+
+canvas.addEventListener(
+    "touchstart",
+    startScratch
+);
+
+canvas.addEventListener(
+    "touchmove",
+    moveScratch,
+    { passive: false }
+);
+
+canvas.addEventListener(
+    "touchend",
+    endScratch
+);
 
 /* =========================
    REVEAL CHECK
@@ -654,12 +724,13 @@ function checkReveal() {
 
     if (revealed) return;
 
-    const imageData = ctx.getImageData(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
+    const imageData =
+        ctx.getImageData(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
 
     let transparent = 0;
 
@@ -670,13 +741,18 @@ function checkReveal() {
     ) {
 
         if (imageData.data[i] === 0) {
+
             transparent++;
+
         }
+
     }
 
     const percent =
-        (transparent /
-            (canvas.width * canvas.height)) * 100;
+        (
+            transparent /
+            (canvas.width * canvas.height)
+        ) * 100;
 
     if (percent > 42) {
 
@@ -704,10 +780,16 @@ function checkReveal() {
             onStart: () => {
 
                 document
-                    .getElementById("countdownSection")
+                    .getElementById(
+                        "countdownSection"
+                    )
                     .classList
-                    .remove("pointer-events-none");
+                    .remove(
+                        "pointer-events-none"
+                    );
+
             }
+
         });
 
         gsap.to(window, {
@@ -719,9 +801,13 @@ function checkReveal() {
             delay: 0.8,
 
             ease: "power2.inOut"
+
         });
+
     }
+
 }
+
 /* =========================
    CELEBRATION
 ========================= */
@@ -732,7 +818,8 @@ function celebrationEffect() {
 
     for (let i = 0; i < 80; i++) {
 
-        const c = document.createElement("div");
+        const c =
+            document.createElement("div");
 
         c.className =
             "absolute w-3 h-3 rounded-full";
@@ -762,179 +849,46 @@ function celebrationEffect() {
 
             y: 500,
 
-            x: (Math.random() - 0.5) * 300,
+            x:
+                (Math.random() - 0.5)
+                * 300,
 
             rotation: 720,
 
-            duration: 3 + Math.random() * 2,
+            duration:
+                3 + Math.random() * 2,
 
             ease: "power2.out",
 
             onComplete: () => c.remove()
 
         });
+
     }
+
 }
 
 /* =========================
-   MOUSE EVENTS
+   RESPONSIVE GSAP
 ========================= */
 
-canvas.addEventListener(
-    "mousedown",
-    (e) => {
+ScrollTrigger.matchMedia({
 
-        isScratching = true;
+    "(max-width: 767px)": function () {
 
-        const rect =
-            canvas.getBoundingClientRect();
-
-        lastX = e.clientX - rect.left;
-        lastY = e.clientY - rect.top;
-    }
-);
-
-canvas.addEventListener(
-    "mouseup",
-    () => {
-        isScratching = false;
-    }
-);
-
-canvas.addEventListener(
-    "mouseleave",
-    () => {
-        isScratching = false;
-    }
-);
-
-canvas.addEventListener(
-    "mousemove",
-    (e) => {
-
-        if (!isScratching) return;
-
-        const rect =
-            canvas.getBoundingClientRect();
-
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        scratch(x, y);
-    }
-);
-
-/* =========================
-   TOUCH EVENTS
-========================= */
-
-canvas.addEventListener(
-    "touchstart",
-    (e) => {
-
-        isScratching = true;
-
-        const rect =
-            canvas.getBoundingClientRect();
-
-        const t = e.touches[0];
-
-        lastX = t.clientX - rect.left;
-        lastY = t.clientY - rect.top;
+        gsap.set(".floating-icon", {
+            scale: 0.8
+        });
 
     },
-    { passive: true }
-);
 
-canvas.addEventListener(
-    "touchend",
-    () => {
-        isScratching = false;
-    }
-);
+    "(min-width: 768px)": function () {
 
-canvas.addEventListener(
-    "touchmove",
-    (e) => {
-
-        e.preventDefault();
-
-        if (!isScratching) return;
-
-        const rect =
-            canvas.getBoundingClientRect();
-
-        const t = e.touches[0];
-
-        const x = t.clientX - rect.left;
-        const y = t.clientY - rect.top;
-
-        scratch(x, y);
-
-    },
-    { passive: false }
-);
-
-/* CELEBRATION */
-
-function celebrationEffect() {
-
-    celebration.classList.remove("hidden");
-
-    for (let i = 0; i < 80; i++) {
-
-        const c = document.createElement("div");
-        c.className = "absolute w-3 h-3 rounded-full";
-
-        const colors = ["#cb7d96", "#d9aa74", "#fff", "#f3d6de"];
-        c.style.background = colors[Math.floor(Math.random() * colors.length)];
-
-        c.style.left = Math.random() * 100 + "%";
-        c.style.top = "-20px";
-
-        celebration.appendChild(c);
-
-        gsap.to(c, {
-            y: 500,
-            x: (Math.random() - 0.5) * 300,
-            rotation: 720,
-            duration: 3 + Math.random() * 2,
-            ease: "power2.out",
-            onComplete: () => c.remove()
+        gsap.set(".floating-icon", {
+            scale: 1
         });
 
     }
-}
 
-
-/* SCRATCH EVENTS */
-
-canvas.addEventListener("mousedown", () => isScratching = true);
-canvas.addEventListener("mouseup", () => isScratching = false);
-canvas.addEventListener("mouseleave", () => isScratching = false);
-
-canvas.addEventListener("mousemove", (e) => {
-
-    if (!isScratching) return;
-
-    const rect = canvas.getBoundingClientRect();
-
-    scratch(e.clientX - rect.left, e.clientY - rect.top);
 });
-
-canvas.addEventListener("touchstart", () => isScratching = true);
-canvas.addEventListener("touchend", () => isScratching = false);
-
-canvas.addEventListener("touchmove", (e) => {
-
-    e.preventDefault();
-
-    if (!isScratching) return;
-
-    const rect = canvas.getBoundingClientRect();
-    const t = e.touches[0];
-
-    scratch(t.clientX - rect.left, t.clientY - rect.top);
-
-}, { passive: false });
 
