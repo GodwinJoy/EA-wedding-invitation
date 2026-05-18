@@ -25,22 +25,7 @@
 
 </head>
 <body>
-        <!-- MUSIC -->
 
-    <button id="musicToggle"
-        class="fixed bottom-6 right-6 z-[99999] w-16 h-16 rounded-full music-btn">
-
-        <i class="fa-solid fa-music"></i>
-
-    </button>
-
-    <audio id="bgMusic" loop>
-
-        <source
-            src="./medias/leberch-invitation-wedding-375839.mp3"
-            type="audio/mp3">
-
-    </audio>
 
 <!-- INTRO -->
 <section id="intro"
@@ -192,6 +177,22 @@
 
     <!-- WEBSITE -->
 
+            <!-- MUSIC -->
+
+    <button id="musicToggle"
+        class="fixed bottom-6 right-6 z-[99999] w-16 h-16 rounded-full music-btn">
+
+        <i class="fa-solid fa-music"></i>
+
+    </button>
+
+    <audio id="bgMusic" loop>
+
+        <source
+            src="./medias/leberch-invitation-wedding-375839.mp3"
+            type="audio/mp3">
+
+    </audio>
     <main id="websiteContent">
         <!-- CUSTOM CURSOR -->
         <div id="custom-cursor"></div>
@@ -209,27 +210,82 @@
             </div>
         </nav>
 
-        <!-- HERO -->
-        <section class="relative h-screen flex items-center justify-center p-6 overflow-hidden">
-            <div class="absolute w-full h-[500px]  rounded-full blur-[120px] opacity-20 -top-40 -left-32"></div>
+<!-- HERO SECTION -->
 
-            <div id="hero-card-reveal"  class="neo-card w-full max-w-6xl  h-[80vh] flex flex-col md:flex-row overflow-hidden shadow-xl" style="visibility: hidden"> 
-                <div class="flex-1 p-12 flex flex-col justify-center">
-                    <h2 class="hero-stagger  tracking-[10px] text-xs font-bold mb-6 ">INVITATION</h2>
-                    <h1 class="hero-stagger text-7xl md:text-8xl elegant-font leading-none mb-2  ">Ann </h1>
-                    <h1 class="hero-stagger text-7xl md:text-8xl elegant-font text-[#d9aa74] leading-none mb-2">& </h1>
-                    <h1 class="hero-stagger text-7xl md:text-8xl elegant-font  leading-none mb-2 "> Edwin</h1>
-                    <p class="hero-stagger opacity-60 max-w-sm border-l-2 border-accent pl-6 italic">
-                        By the grace of God, we invite you to share in the joy of our marriage.
-                    </p>
-                </div>
-                
-                <div class="flex-1 relative group overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200" 
-                        class="w-full h-full object-cover ">
-                </div>
+<section class="relative min-h-screen flex items-center justify-center p-4 md:p-6 overflow-hidden">
+
+    <!-- BACKGROUND GLOW -->
+
+    <div
+        class="absolute w-full h-[500px] rounded-full blur-[120px] opacity-20 -top-40 -left-32 bg-[#f4d7c9]">
+    </div>
+
+    <!-- MAIN CARD -->
+
+    <div id="hero-card-reveal"
+        class="neo-card w-full max-w-5xl min-h-[90vh] md:h-[80vh] flex flex-col md:flex-row overflow-hidden shadow-xl rounded-[32px]"
+        style="visibility: hidden">
+
+        <!-- LEFT CONTENT -->
+
+        <div
+            class="flex-1 p-8 md:p-12 flex flex-col justify-center order-2 md:order-1 bg-[#fffdfc]">
+
+            <h2
+                class="hero-stagger tracking-[10px] text-[11px] md:text-xs font-bold mb-5 text-[#b08a67] uppercase">
+                Invitation
+            </h2>
+
+            <h1
+                class="hero-stagger text-5xl sm:text-6xl md:text-7xl lg:text-8xl elegant-font leading-none mb-2 text-[#6b5960]">
+                Ann
+            </h1>
+
+            <h1
+                class="hero-stagger text-5xl sm:text-6xl md:text-7xl lg:text-8xl elegant-font text-[#d9aa74] leading-none mb-2">
+                &
+            </h1>
+
+            <h1
+                class="hero-stagger text-5xl sm:text-6xl md:text-7xl lg:text-8xl elegant-font leading-none mb-6 text-[#6b5960]">
+                Edwin
+            </h1>
+
+            <p
+                class="hero-stagger opacity-70 max-w-sm border-l-2 border-[#d9aa74] pl-5 italic text-[15px] md:text-base leading-relaxed text-[#7d6a71]">
+                By the grace of God, we invite you to share in the joy of our marriage.
+            </p>
+
+        </div>
+
+        <!-- RIGHT IMAGE SECTION -->
+
+        <div
+            class="flex-1 relative group overflow-hidden order-1 md:order-2 bg-[#fff7f3] flex items-center justify-center p-4 md:p-0 min-h-[420px] md:min-h-full">
+
+            <!-- SOFT GLOW -->
+
+            <div
+                class="absolute inset-0 bg-gradient-to-br from-[#fff8f4] via-[#fffdfb] to-[#f9ece5]">
             </div>
-        </section>
+
+            <!-- IMAGE -->
+
+            <img src="./medias/couple.png"
+                class="relative z-10 w-full h-full object-contain md:object-cover object-center md:object-top rounded-[24px] md:rounded-none scale-[0.98] md:scale-100 shadow-lg">
+
+            <!-- DREAMY OVERLAY -->
+
+            <div
+                class="absolute inset-0 bg-gradient-to-t from-[#f7d9ca]/10 via-transparent to-[#fff5ef]/20 pointer-events-none">
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
 
 <!-- OUR STORY -->
 <section
